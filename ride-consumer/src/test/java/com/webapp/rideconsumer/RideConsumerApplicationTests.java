@@ -1,13 +1,19 @@
 package com.webapp.rideconsumer;
 
+
+
+import com.webapp.rideconsumer.kmlparser.KmlParser;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class RideConsumerApplicationTests {
+import java.io.FileNotFoundException;
 
-	@Test
-	void contextLoads() {
-	}
+
+public class RideConsumerApplicationTests {
+
+    @Test
+    public void parseKml() throws FileNotFoundException {
+    new KmlParser().runParser();
+    }
+
 
 }
