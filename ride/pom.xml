@@ -7,33 +7,52 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ride</name>
 	<description>Demo project for Spring Boot</description>
+	<packaging>pom</packaging>
+
 
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
 
 	<modules>
-		<module>../ride-business</module>
-		<module>../ride-consumer</module>
-		<module>../ride-model</module>
-		<module>../ride-webapp</module>
+		<module>ride-business</module>
+		<module>ride-consumer</module>
+		<module>ride-model</module>
+		<module>ride-webapp</module>
 	</modules>
 
-
-	<dependencyManagement>
+<dependencyManagement>
 		<dependencies>
+
+			<!-- JSTL for JSP -->
 			<dependency>
-				<artifactId>ride-business</artifactId>
-				<groupId>${project.groupId}</groupId>
-				<version>${project.version}</version>
+				<groupId>javax.servlet</groupId>
+				<artifactId>jstl</artifactId>
+			</dependency>
+
+			<!-- Need this to compile JSP -->
+			<dependency>
+				<groupId>org.apache.tomcat.embed</groupId>
+				<artifactId>tomcat-embed-jasper</artifactId>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-jpa</artifactId>
 			</dependency>
 			<dependency>
 				<artifactId>ride-consumer</artifactId>
 				<groupId>${project.groupId}</groupId>
 				<version>${project.version}</version>
+
 			</dependency>
 			<dependency>
 				<artifactId>ride-model</artifactId>
+				<groupId>${project.groupId}</groupId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<artifactId>ride-business</artifactId>
 				<groupId>${project.groupId}</groupId>
 				<version>${project.version}</version>
 			</dependency>
@@ -42,18 +61,17 @@
 				<groupId>${project.groupId}</groupId>
 				<version>${project.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>2.2.2.RELEASE</version>
+			</dependency>
+
 		</dependencies>
 
-	</dependencyManagement>
+</dependencyManagement>
 
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+
 
 </project>
