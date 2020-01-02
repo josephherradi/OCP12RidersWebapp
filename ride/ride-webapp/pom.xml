@@ -3,12 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.webapp</groupId>
+		<groupId>com.app</groupId>
 		<artifactId>ride</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<groupId>com.webapp</groupId>
+	<groupId>com.ocp12</groupId>
 	<artifactId>ride-webapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ride-webapp</name>
@@ -28,15 +28,15 @@
 	</dependency>
 		<dependency>
 			<artifactId>ride-consumer</artifactId>
-			<groupId>${project.groupId}</groupId>
+			<groupId>com.ocp12</groupId>
 		</dependency>
 		<dependency>
 			<artifactId>ride-business</artifactId>
-			<groupId>${project.groupId}</groupId>
+			<groupId>com.ocp12</groupId>
 		</dependency>
 		<dependency>
 			<artifactId>ride-model</artifactId>
-			<groupId>${project.groupId}</groupId>
+			<groupId>com.ocp12</groupId>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>

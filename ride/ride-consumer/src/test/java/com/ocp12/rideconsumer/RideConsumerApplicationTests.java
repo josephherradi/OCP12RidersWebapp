@@ -1,8 +1,8 @@
-package com.webapp.rideconsumer;
+package com.ocp12.rideconsumer;
 
 
 
-import com.webapp.rideconsumer.kmlparser.KmlParser;
+import com.ocp12.rideconsumer.kmlparser.KmlParser;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;

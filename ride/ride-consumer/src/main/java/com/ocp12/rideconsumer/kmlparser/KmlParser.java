@@ -1,8 +1,7 @@
-package com.webapp.rideconsumer.kmlparser;
+package com.ocp12.rideconsumer.kmlparser;
 
 
 import de.micromata.opengis.kml.v_2_2_0.*;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,7 +10,7 @@ import java.util.List;
 
 public class KmlParser {
     public void runParser() throws FileNotFoundException {
-        String path = "/Users/mobileapptechnologies/OCP12/ride/ride-consumer/tour-france.kml";
+        String path = "/Users/mobileapptechnologies/OCP12/OCP12RidersWebapp/ride/ride-consumer/tour-france.kml";
         File file = new File(path);
         InputStream inputStream = new FileInputStream(file);
         Kml kml = Kml.unmarshal(inputStream);

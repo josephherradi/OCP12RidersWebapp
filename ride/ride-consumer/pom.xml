@@ -15,12 +15,12 @@
 		</plugins>
 	</build>
 	<parent>
-		<groupId>com.webapp</groupId>
+		<groupId>com.app</groupId>
 		<artifactId>ride</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<groupId>com.webapp</groupId>
+	<groupId>com.ocp12</groupId>
 	<artifactId>ride-consumer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ride-consumer</name>
@@ -35,14 +35,13 @@
 	<dependencies>
 		<dependency>
 			<artifactId>ride-model</artifactId>
-			<groupId>${project.groupId}</groupId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>com.ocp12</groupId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<version>RELEASE</version>
+			<version>5.5.2</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/de.micromata.jak/JavaAPIforKml -->

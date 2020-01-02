@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.webapp</groupId>
+	<groupId>com.app</groupId>
 	<artifactId>ride</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ride</name>
@@ -35,23 +35,23 @@
 			</dependency>
 			<dependency>
 				<artifactId>ride-consumer</artifactId>
-				<groupId>${project.groupId}</groupId>
+				<groupId>com.ocp12</groupId>
 				<version>${project.version}</version>
 
 			</dependency>
 			<dependency>
 				<artifactId>ride-model</artifactId>
-				<groupId>${project.groupId}</groupId>
+				<groupId>com.ocp12</groupId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<artifactId>ride-business</artifactId>
-				<groupId>${project.groupId}</groupId>
+				<groupId>com.ocp12</groupId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<artifactId>ride-webapp</artifactId>
-				<groupId>${project.groupId}</groupId>
+				<groupId>com.ocp12</groupId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
