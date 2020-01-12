@@ -35,7 +35,7 @@
 			<groupId>com.ocp12</groupId>
 		</dependency>
 		<dependency>
-			<artifactId>ride-model</artifactId>
+			<artifactId>ride-modele</artifactId>
 			<groupId>com.ocp12</groupId>
 		</dependency>
 		<dependency>
@@ -54,7 +54,6 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
 	</dependencies>
 	<build>
 		<plugins>

@@ -2,11 +2,15 @@ package com.ocp12.rideconsumer.kmlparser;
 
 
 import de.micromata.opengis.kml.v_2_2_0.*;
+import org.springframework.stereotype.Component;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
+
+@Component
 
 public class KmlParser {
     public void runParser() throws FileNotFoundException {

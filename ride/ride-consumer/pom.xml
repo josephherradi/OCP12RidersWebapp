@@ -34,8 +34,9 @@
 
 	<dependencies>
 		<dependency>
-			<artifactId>ride-model</artifactId>
+			<artifactId>ride-modele</artifactId>
 			<groupId>com.ocp12</groupId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>

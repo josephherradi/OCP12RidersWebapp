@@ -22,7 +22,7 @@
 	<modules>
 		<module>ride-business</module>
 		<module>ride-consumer</module>
-		<module>ride-model</module>
+		<module>ride-modele</module>
 		<module>ride-webapp</module>
 	</modules>
 
@@ -32,6 +32,7 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-data-jpa</artifactId>
+				<version>2.2.2.RELEASE</version>
 			</dependency>
 			<dependency>
 				<artifactId>ride-consumer</artifactId>
@@ -40,7 +41,7 @@
 
 			</dependency>
 			<dependency>
-				<artifactId>ride-model</artifactId>
+				<artifactId>ride-modele</artifactId>
 				<groupId>com.ocp12</groupId>
 				<version>${project.version}</version>
 			</dependency>
