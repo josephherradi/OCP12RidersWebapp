@@ -9,10 +9,12 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@ComponentScan(basePackages = {"com.ocp12.ridewebapp","com.ocp12.rideconsumer","com.ocp12.ridebusiness","com.ocp12.ridemodele"})
+@ComponentScan(basePackages={"com.ocp12.ridewebapp","com.ocp12.rideconsumer","com.ocp12.ridebusiness"})
 @SpringBootApplication
 @EntityScan(basePackages = {"com.ocp12.ridemodele"})
 @EnableAutoConfiguration
+@EnableJpaRepositories(basePackages={"com.ocp12.rideconsumer.dao"})
+
 
 public class RideWebappApplication extends SpringBootServletInitializer {
 

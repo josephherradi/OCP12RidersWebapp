@@ -8,7 +8,7 @@
 		<version>2.2.2.RELEASE</version>
 		<relativePath/>
 	</parent>
-	<groupId>com.ocp12</groupId>
+	<groupId>com.ocp12.modele</groupId>
 	<artifactId>ride-modele</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ride-modele</name>

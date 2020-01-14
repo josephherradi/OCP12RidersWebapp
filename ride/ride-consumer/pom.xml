@@ -15,12 +15,12 @@
 		</plugins>
 	</build>
 	<parent>
-		<groupId>com.app</groupId>
+		<groupId>com.ocp12</groupId>
 		<artifactId>ride</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<groupId>com.ocp12</groupId>
+	<groupId>com.ocp12.consumer</groupId>
 	<artifactId>ride-consumer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ride-consumer</name>
@@ -35,8 +35,8 @@
 	<dependencies>
 		<dependency>
 			<artifactId>ride-modele</artifactId>
-			<groupId>com.ocp12</groupId>
 			<version>0.0.1-SNAPSHOT</version>
+			<groupId>com.ocp12.modele</groupId>
 		</dependency>
 
 		<dependency>
@@ -51,8 +51,13 @@
 			<artifactId>JavaAPIforKml</artifactId>
 			<version>2.2.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
 
 	</dependencies>
+
 
 
 <repositories>
@@ -70,6 +75,7 @@
 		</snapshots>
 	</repository>
 </repositories>
+
 
 
 </project>

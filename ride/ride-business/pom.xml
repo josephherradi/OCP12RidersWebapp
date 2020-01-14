@@ -3,12 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.app</groupId>
+		<groupId>com.ocp12</groupId>
 		<artifactId>ride</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<groupId>com.ocp12</groupId>
+	<groupId>com.ocp12.business</groupId>
 	<artifactId>ride-business</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ride-business</name>
@@ -16,17 +16,25 @@
 	<packaging>pom</packaging>
 
 
-	<properties>
-		<java.version>1.8</java.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<artifactId>ride-consumer</artifactId>
-			<groupId>com.ocp12</groupId>
+			<version>0.0.1-SNAPSHOT</version>
+			<groupId>com.ocp12.consumer</groupId>
 		</dependency>
 
 	</dependencies>
-
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>8</source>
+					<target>8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

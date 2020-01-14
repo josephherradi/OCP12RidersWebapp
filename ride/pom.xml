@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.app</groupId>
+	<groupId>com.ocp12</groupId>
 	<artifactId>ride</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ride</name>
@@ -36,23 +36,23 @@
 			</dependency>
 			<dependency>
 				<artifactId>ride-consumer</artifactId>
-				<groupId>com.ocp12</groupId>
+				<groupId>com.ocp12.consumer</groupId>
 				<version>${project.version}</version>
 
 			</dependency>
 			<dependency>
 				<artifactId>ride-modele</artifactId>
-				<groupId>com.ocp12</groupId>
+				<groupId>com.ocp12.modele</groupId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<artifactId>ride-business</artifactId>
-				<groupId>com.ocp12</groupId>
+				<groupId>com.ocp12.business</groupId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<artifactId>ride-webapp</artifactId>
-				<groupId>com.ocp12</groupId>
+				<groupId>com.ocp12.webapp</groupId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
@@ -60,7 +60,6 @@
 				<artifactId>spring-boot-starter-web</artifactId>
 				<version>2.2.2.RELEASE</version>
 			</dependency>
-
 		</dependencies>
 
 </dependencyManagement>
