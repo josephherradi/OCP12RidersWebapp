@@ -8,22 +8,29 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
 
 public class KmlParser {
-    public void runParser() throws FileNotFoundException {
+    CoordinatesBean coordinatesBean=new CoordinatesBean();
+    List<CoordinatesBean> coordinatesBeanList=new ArrayList<>();
+
+
+    public List<CoordinatesBean> runParser() throws FileNotFoundException {
+
         String path = "/Users/mobileapptechnologies/OCP12/OCP12RidersWebapp/ride/ride-consumer/tour-france.kml";
         File file = new File(path);
         InputStream inputStream = new FileInputStream(file);
         Kml kml = Kml.unmarshal(inputStream);
         Feature feature = kml.getFeature();
-        parseFeature(feature);
+        List<CoordinatesBean> coordinatesBeanList=parseFeature(feature);
+        return coordinatesBeanList;
 
     }
 
-    private static void parseFeature(Feature feature) {
+    private List<CoordinatesBean> parseFeature(Feature feature) {
         if (feature != null) {
             Document document = (Document) feature;
             List<Feature> featureList = document.getFeature();
@@ -34,37 +41,43 @@ public class KmlParser {
                     if (folderfeature instanceof Placemark) {
                         Placemark placemark = (Placemark) folderfeature;
                         Geometry geometry = placemark.getGeometry();
-                        parseGeometry(geometry);
+                        List<CoordinatesBean>coordinatesBeanList=parseGeometry(geometry,placemark);
                     }
                 }
             }
         }
+        return coordinatesBeanList;
     }
 
 
-    private static void parseGeometry(Geometry geometry) {
+    private List<CoordinatesBean> parseGeometry(Geometry geometry, Placemark placemark) {
         if (geometry != null) {
             if (geometry instanceof Point) {
                 Point point = (Point) geometry;
                 List<Coordinate> coordinates = point.getCoordinates();
                 if (coordinates != null) {
                     for (Coordinate coordinate : coordinates) {
-                        parseCoordinate(coordinate);
+                       coordinatesBeanList.add(parseCoordinate(coordinate,placemark));
                     }
                 }
             }
         }
+        return coordinatesBeanList;
     }
 
 
 
-    private static void parseCoordinate(Coordinate coordinate) {
+    private CoordinatesBean parseCoordinate(Coordinate coordinate,Placemark placemark) {
         if(coordinate != null) {
+            coordinatesBean.setPlaceMarkName(placemark.getName());
+            coordinatesBean.setLatitude(coordinate.getLatitude());
+            coordinatesBean.setLongiture(coordinate.getLongitude());
+            System.out.println("Nom: " +  placemark.getName());
             System.out.println("Longitude: " +  coordinate.getLongitude());
             System.out.println("Latitude : " +  coordinate.getLatitude());
-            System.out.println("Altitude : " +  coordinate.getAltitude());
             System.out.println("");
         }
+        return coordinatesBean;
     }
 
 }
