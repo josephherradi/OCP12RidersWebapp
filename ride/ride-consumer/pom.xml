@@ -25,7 +25,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ride-consumer</name>
 	<description>consumer layer</description>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 
 
 	<properties>

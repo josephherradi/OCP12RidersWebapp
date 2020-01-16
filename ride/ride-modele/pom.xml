@@ -13,7 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ride-modele</name>
 	<description>model layer</description>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 
 
 	<properties>
