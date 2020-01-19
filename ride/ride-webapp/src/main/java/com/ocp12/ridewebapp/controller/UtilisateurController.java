@@ -50,7 +50,7 @@ public class UtilisateurController {
                 session.setAttribute("user", userId);
                 session.setAttribute("theUser", registredUserId);
 
-                return "redirect:/upload";
+                return "redirect:/sorties/liste";
             } else {
                 theModelMap.put("error", "Please check Id & password");
                 return "index";

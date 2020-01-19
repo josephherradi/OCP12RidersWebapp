@@ -13,6 +13,8 @@ public class Sortie {
     @Column(name="sortie_id")
     private int sortieId;
 
+    @Column(name ="nom")
+    private String nom;
 
     @Column(name = "date")
     private Date date;
@@ -123,6 +125,14 @@ public class Sortie {
         this.nbrEtapes = nbrEtapes;
     }
 
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
     public Sortie() {
     }
 
@@ -130,6 +140,7 @@ public class Sortie {
     public String toString() {
         return "Sortie{" +
                 "sortieId=" + sortieId +
+                ", nom='" + nom + '\'' +
                 ", date=" + date +
                 ", description='" + description + '\'' +
                 ", nbrParticipants=" + nbrParticipants +

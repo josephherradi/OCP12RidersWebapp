@@ -10,4 +10,5 @@ import java.util.List;
 public interface SortieManager {
     public List<Sortie> sortiesList();
     public void saveSortie(Sortie laSortie);
+    public  Sortie findById(Integer sortieId);
 }

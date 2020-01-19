@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
+@RequestMapping("/sorties")
 @Controller
 public class SortieController {
     @Autowired
@@ -23,7 +25,7 @@ public class SortieController {
 
 
 
-    @RequestMapping(value = "sorties",method = RequestMethod.GET)
+    @RequestMapping(value = "/liste",method = RequestMethod.GET)
     public String listeSorties(Model theModel){
         List<Sortie> sortiesList=sortieManager.sortiesList();
         theModel.addAttribute("sortiesList",sortiesList);
@@ -37,6 +39,21 @@ public class SortieController {
         laSortie.setOrganisateur(loggedUser);
         laSortie.setDate(new Date());
         sortieManager.saveSortie(laSortie);
-        return "redirect:/sorties";
+        return "redirect:/sorties/liste";
+    }
+
+    @RequestMapping(value = "showFormSortie",method = RequestMethod.GET)
+    public String newSortie(Model theModel){
+        Sortie sortie=new Sortie();
+        theModel.addAttribute("laSortie",sortie);
+        return "sortie-form";
+
+    }
+
+    @RequestMapping(value = "{sortieId}/details")
+    public String sortieDetails(@PathVariable("sortieId") Integer sortieId,Model model){
+    Sortie laSortie= sortieManager.findById(sortieId);
+    model.addAttribute("laSortie",laSortie);
+    return "detail-sortie";
     }
 }

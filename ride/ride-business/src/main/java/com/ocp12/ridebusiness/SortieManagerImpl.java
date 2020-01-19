@@ -25,4 +25,9 @@ public class SortieManagerImpl implements SortieManager{
         sortieDao.save(laSortie);
 
     }
+
+    @Override
+    public Sortie findById(Integer sortieId) {
+        return sortieDao.findById(sortieId).orElse(null);
+    }
 }

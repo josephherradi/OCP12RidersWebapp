@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>liste livres</title>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
  <style>
       #map {
        height: 600px;
@@ -25,22 +24,14 @@
 
 </head>
 <body>
-	<div class="container">
-		<div class="col-md-offset-1 col-md-11">
 
-			<div class="panel-body">
 			<div id="map"></div>
 			<br />
 			<div id="capture"></div>
 
 
-			</div>
-
-		</div>
-	</div>
-<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script async defer
-src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTXSKPEk_6e1hVWHoAb92jmTFF0F7AeCA&callback=initMap">
 </script>
 
 <script>
