@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 
+@RequestMapping("/account")
 @Controller
 public class UtilisateurController {
 
@@ -49,7 +50,7 @@ public class UtilisateurController {
                 session.setAttribute("user", userId);
                 session.setAttribute("theUser", registredUserId);
 
-                return "redirect:/sorties";
+                return "redirect:/upload";
             } else {
                 theModelMap.put("error", "Please check Id & password");
                 return "index";

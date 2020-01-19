@@ -1,7 +1,5 @@
 package com.ocp12.ridewebapp;
 
-import com.ocp12.rideconsumer.fileUploader.StorageProperties;
-import com.ocp12.rideconsumer.fileUploader.StorageService;
 import org.apache.catalina.Context;
 import org.apache.tomcat.util.scan.StandardJarScanner;
 import org.springframework.boot.CommandLineRunner;
@@ -23,7 +21,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableAutoConfiguration
 @EnableJpaRepositories(basePackages={"com.ocp12.rideconsumer.dao"})
 
-@EnableConfigurationProperties(StorageProperties.class)
 
 public class RideWebappApplication extends SpringBootServletInitializer {
 
@@ -36,13 +33,7 @@ public class RideWebappApplication extends SpringBootServletInitializer {
 		return builder.sources(RideWebappApplication.class);
 
 	}
-	@Bean
-	CommandLineRunner init(StorageService storageService) {
-		return (args) -> {
-			storageService.deleteAll();
-			storageService.init();
-		};
-	}
+
 	@Bean
 	public TomcatServletWebServerFactory tomcatFactory() {
 		return new TomcatServletWebServerFactory() {

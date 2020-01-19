@@ -6,32 +6,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>upload form</title>
+<title>Spring MVC 5 - form handling | Java Guides</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 
 </head>
+
 <body>
 
+	<h1>Spring Boot - File Upload</h1>
 
-	<div>
-		<form method="POST" enctype="multipart/form-data" action="/">
-			<table>
-				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
-				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
-			</table>
-		</form>
-	</div>
-
-	<div>
-		<ul>
-			<li c:forEach var="tempFiles" items="${files}">
-				<a href="${tempFiles}" text="${tempFiles.filename}" />
-			</li>
-		</ul>
-	</div>
+	<form method="POST" action="/upload" enctype="multipart/form-data">
+		<input type="file" name="file" /><br />
+		<br /> <input type="submit" value="Submit" />
+	</form>
 
 </body>
 </html>
