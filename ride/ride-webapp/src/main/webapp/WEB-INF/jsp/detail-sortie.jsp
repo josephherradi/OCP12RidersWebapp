@@ -35,8 +35,7 @@
 
 
 			<br>
-			<h2>Détail de la sortie</h2>
-
+			<h2>Détail de la sortie </h2>
 			<table class="table table-striped table-bordered">
 				<tr>
 				    <th>organisateur</th>
@@ -94,7 +93,7 @@
 </script>
 <script>
       var map;
-      var src = 'https://raw.githubusercontent.com/josephherradi/OCP12RidersWebapp/master/ride/ride-webapp/demo3.kml';
+      var src ='${kmlPath}';
       var geoJSON;
   var request;
   var gettingData = false;

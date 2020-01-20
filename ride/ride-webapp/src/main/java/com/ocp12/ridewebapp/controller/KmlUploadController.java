@@ -1,10 +1,5 @@
 package com.ocp12.ridewebapp.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,24 +7,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-@RequestMapping("/test")
-@Controller
-public class FileUploaderController {
 
-    //destination folder to upload the files
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+@Controller
+public class KmlUploadController {
     private static String UPLOAD_FOLDER = "upload-dir/";
 
-    @RequestMapping("/upload")
-    public ModelAndView showUpload() {
-        return new ModelAndView("upload");
-    }
 
     @PostMapping("/upload")
-    public ModelAndView fileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+    public String fileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
 
-        if (file.isEmpty()) {
-            return new ModelAndView("status", "message", "Please select a file and try again");
-        }
+
 
         try {
             // read and write the file to the selected location-
@@ -40,8 +32,7 @@ public class FileUploaderController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return "redirect:/sorties/liste";
 
-        return new ModelAndView("status", "message", "File Uploaded sucessfully");
     }
-
 }

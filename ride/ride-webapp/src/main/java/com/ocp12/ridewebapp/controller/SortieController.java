@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.Date;
 import java.util.List;
 
@@ -54,6 +56,16 @@ public class SortieController {
     public String sortieDetails(@PathVariable("sortieId") Integer sortieId,Model model){
     Sortie laSortie= sortieManager.findById(sortieId);
     model.addAttribute("laSortie",laSortie);
+        File kmlFolder=new File("upload-dir/"+sortieId);
+        if (kmlFolder.exists()) {
+            File[] kmlFound=kmlFolder.listFiles(new FilenameFilter() {
+                public boolean accept(File kmlFolder, String filename)
+                { return filename.endsWith(".kml"); }
+            } );
+          System.out.println(kmlFound[0].getAbsolutePath());
+        model.addAttribute("kmlPath",kmlFound[0].getAbsolutePath());
+        }
+
     return "detail-sortie";
     }
 }

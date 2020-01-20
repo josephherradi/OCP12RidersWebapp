@@ -1,7 +1,5 @@
 package com.ocp12.ridewebapp.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,13 +9,11 @@ import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -29,8 +25,7 @@ public class FileDownloaderController {
     @Autowired
     private ServletContext servletContext;
 
-    // http://localhost:8080/download1?fileName=abc.zip
-    // Using ResponseEntity<InputStreamResource>
+
     @GetMapping("/download1")
     public ResponseEntity<ByteArrayResource> downloadFile2(
             @RequestParam(defaultValue = DEFAULT_FILE_NAME) String fileName) throws IOException {
@@ -53,9 +48,7 @@ public class FileDownloaderController {
                 .body(resource);
     }
     public static MediaType getMediaTypeForFileName(ServletContext servletContext, String fileName) {
-        // application/pdf
-        // application/xml
-        // image/gif, ...
+
         String mineType = servletContext.getMimeType(fileName);
         try {
             MediaType mediaType = MediaType.parseMediaType(mineType);

@@ -14,6 +14,7 @@
 
 </head>
 <body>
+<a href="${pageContext.request.contextPath}/sorties/liste">Liste des sorties</a>
 <h1>File Upload Status</h1>
 
 ${message}

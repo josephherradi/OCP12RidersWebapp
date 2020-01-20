@@ -6,12 +6,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Mes topos</title>
+<title>Sortie</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
-<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
-
 </head>
 <body>
 	<div class="container">
@@ -23,10 +20,11 @@
 				<button type="button" name="back" onclick="history.back()">back</button>
 
 				<br>
+		 <h2>Sortie</h2>
 
-				<form:form action="saveFormSortie" cssClass="form-horizontal"
-					method="post" modelAttribute="laSortie">
-					<h2>Sortie</h2>
+            <div class="form-group">
+			<div class="col-md-offset-2 col-md-9">
+				<form:form id="form1" action="/sorties/saveFormSortie" cssClass="form-horizontal" method="post" modelAttribute="laSortie">
 
 					<form:hidden path="sortieId" />
 					<form:hidden path="organisateur"/>
@@ -97,22 +95,41 @@
                     							</form:select>
                     						</div>
                     					</div>
-
-
-
-
-					<div class="form-group">
+	                <div class="form-group">
 						<div class="col-md-offset-3 col-md-9">
 							<form:button cssClass="btn btn-primary">Submit</form:button>
 						</div>
 					</div>
-				</form:form>
+
+
+				   </form:form>
+                    </div>
+                  </div>
+                     <div class="form-group">
+				        <div class="col-md-offset-2 col-md-9">
+                             <form:form  id="form2" method="POST" action="/upload" enctype="multipart/form-data">
+                	    	<input type="file" name="file" /><br />
+                             </form:form>
+                        </div>
+                        </div>
+
+
+					<div class="form-group">
+						<div class="col-md-offset-2 col-md-9">
+							<button id="submit" cssClass="btn btn-primary">Submit</button>
+						</div>
+					</div>
 
 
 
 			</div>
 		</div>
 	</div>
-
+<script>
+document.getElementById("submit").onclick = function() {
+document.getElementById("form1").submit();
+document.getElementById("form2").submit();
+}
+</script>
 </body>
 </html>
