@@ -24,7 +24,7 @@
 
             <div class="form-group">
 			<div class="col-md-offset-2 col-md-9">
-				<form:form id="form1" action="/sorties/saveFormSortie" cssClass="form-horizontal" method="post" modelAttribute="laSortie">
+				<form:form action="/sorties/saveFormSortie" cssClass="form-horizontal" method="post"  enctype="multipart/form-data" modelAttribute="laSortie">
 
 					<form:hidden path="sortieId" />
 					<form:hidden path="organisateur"/>
@@ -43,7 +43,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="date" class="col-md-3 control-label">date (YYYY-MM-DD)</label>
+						<label for="date" class="col-md-3 control-label">date (YYYY/MM/DD)</label>
 						<div class="col-md-9">
 							<form:input path="date" cssClass="form-control" />
 						</div>
@@ -95,41 +95,30 @@
                     							</form:select>
                     						</div>
                     					</div>
-	                <div class="form-group">
-						<div class="col-md-offset-3 col-md-9">
-							<form:button cssClass="btn btn-primary">Submit</form:button>
-						</div>
-					</div>
+                    <div class="form-group">
+                   						<label for="file" class="col-md-3 control-label">Fichier KML</label>
+                   						<div class="col-md-9">
+                   							<input type="file" name="file" />
+                   						</div>
+                   					</div>
 
-
-				   </form:form>
-                    </div>
-                  </div>
-                     <div class="form-group">
-				        <div class="col-md-offset-2 col-md-9">
-                             <form:form  id="form2" method="POST" action="/upload" enctype="multipart/form-data">
-                	    	<input type="file" name="file" /><br />
-                             </form:form>
-                        </div>
-                        </div>
-
-
-					<div class="form-group">
+                    <div class="form-group">
 						<div class="col-md-offset-2 col-md-9">
 							<button id="submit" cssClass="btn btn-primary">Submit</button>
 						</div>
 					</div>
+
+				   </form:form>
+                    </div>
+                  </div>
+
+
+
 
 
 
 			</div>
 		</div>
 	</div>
-<script>
-document.getElementById("submit").onclick = function() {
-document.getElementById("form1").submit();
-document.getElementById("form2").submit();
-}
-</script>
 </body>
 </html>

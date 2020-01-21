@@ -9,8 +9,6 @@
 <title>Spring MVC 5 - form handling | Java Guides</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
-<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 
 </head>
 
@@ -18,7 +16,7 @@
 
 	<h1>Spring Boot - File Upload</h1>
 
-	<form method="POST" action="/uploadKml?sortieId=${sortieId}" enctype="multipart/form-data">
+	<form method="POST" action="/upload?sortieId=${sortieId}" enctype="multipart/form-data">
 		<input type="file" name="file" /><br />
 		<br /> <input type="submit" value="Submit" />
 	</form>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>topos list</title>
+<title>details sortie</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <style>
@@ -88,12 +88,13 @@
 
 		</div>
 	</div>
+<c:url var="kmlLink" value="${kmlPath}"></c:url>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=">
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvbShtoFCkl73on4q7uZvGL__0LVjWC9s">
 </script>
 <script>
       var map;
-      var src ='${kmlPath}';
+      var src = '${kmlLink}';
       var geoJSON;
   var request;
   var gettingData = false;
