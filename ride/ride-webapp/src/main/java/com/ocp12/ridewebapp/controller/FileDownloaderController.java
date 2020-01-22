@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 
 import javax.servlet.ServletContext;
 
+import com.ocp12.ridebusiness.SortieManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -14,27 +15,31 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class FileDownloaderController {
 
     private static final String DIRECTORY = "upload-dir";
-    private static final String DEFAULT_FILE_NAME = "demo3.kml";
 
     @Autowired
     private ServletContext servletContext;
 
+    @Autowired
+    private SortieManager sortieManager;
 
-    @GetMapping("/download1")
+
+    @GetMapping("/download/{kmlname}")
     public ResponseEntity<ByteArrayResource> downloadFile2(
-            @RequestParam(defaultValue = DEFAULT_FILE_NAME) String fileName) throws IOException {
+            @PathVariable("kmlname") String kmlname) throws IOException {
 
+        String fileName=kmlname;
         MediaType mediaType = this.getMediaTypeForFileName(this.servletContext, fileName);
         System.out.println("fileName: " + fileName);
         System.out.println("mediaType: " + mediaType);
 
-        Path path = Paths.get(DIRECTORY + "/" + DEFAULT_FILE_NAME);
+        Path path = Paths.get(DIRECTORY + "/" + fileName);
         byte[] data = Files.readAllBytes(path);
         ByteArrayResource resource = new ByteArrayResource(data);
 

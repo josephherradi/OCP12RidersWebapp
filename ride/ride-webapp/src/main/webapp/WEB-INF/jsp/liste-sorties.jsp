@@ -36,12 +36,6 @@
 						value="/sorties/${tempSorties.sortieId}/details">
 					</c:url>
 
-					<c:url var="uploadLink"
-						value="/uploadKml">
-				   <c:param name="sortieId" value="${tempSorties.sortieId}" />
-
-					</c:url>
-
 
 
 					<tr>
@@ -55,7 +49,6 @@
 
 
 						<td><a href="${detailsLink}">détails</a></td>
-					    <td><a href="${uploadLink}">upload</a></td>
 
 
 

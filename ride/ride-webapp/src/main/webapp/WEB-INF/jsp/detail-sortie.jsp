@@ -88,13 +88,13 @@
 
 		</div>
 	</div>
-<c:url var="kmlLink" value="${kmlPath}"></c:url>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvbShtoFCkl73on4q7uZvGL__0LVjWC9s">
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=">
 </script>
+<script src="/js/geoxml3.js"></script>
 <script>
       var map;
-      var src = '${kmlLink}';
+      var src = '${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/kml/${laSortie.filename}';
       var geoJSON;
   var request;
   var gettingData = false;
@@ -120,15 +120,14 @@
                          testimonial.innerHTML = content;
 
                       });
+        var kmlLayer = new geoXML3.parser({
+                        map: map,
 
-        var kmlLayer = new google.maps.KmlLayer(src, {
-          suppressInfoWindows: true,
-          preserveViewport: false,
-          map:map
-        });
+                    });
+                    kmlLayer.parse(src);
+           }
 
 
-        }
 
           var checkIfDataRequested = function() {
               // Stop extra requests being sent

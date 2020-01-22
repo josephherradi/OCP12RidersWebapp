@@ -11,4 +11,5 @@ public interface SortieManager {
     public List<Sortie> sortiesList();
     public void saveSortie(Sortie laSortie);
     public  Sortie findById(Integer sortieId);
+    public Sortie findByFilename(String kmlname);
 }

@@ -4,22 +4,19 @@ import com.ocp12.ridebusiness.SortieManager;
 import com.ocp12.rideconsumer.dto.SortieKmlDto;
 import com.ocp12.ridemodele.Sortie;
 import com.ocp12.ridemodele.Utilisateur;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.FilenameFilter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -64,6 +61,8 @@ public class SortieController {
         try {
             byte[] bytes = file.getBytes();
             Path path = Paths.get(UPLOAD_FOLDER + file.getOriginalFilename());
+            laSortie.setFilename(file.getOriginalFilename());
+            sortieManager.saveSortie(laSortie);
             Files.write(path, bytes);
 
         } catch (IOException e) {
@@ -85,16 +84,15 @@ public class SortieController {
     public String sortieDetails(@PathVariable("sortieId") Integer sortieId,Model model){
     Sortie laSortie= sortieManager.findById(sortieId);
     model.addAttribute("laSortie",laSortie);
-        File kmlFolder=new File("upload-dir/"+sortieId);
-        if (kmlFolder.exists()) {
-            File[] kmlFound=kmlFolder.listFiles(new FilenameFilter() {
-                public boolean accept(File kmlFolder, String filename)
-                { return filename.endsWith(".kml"); }
-            } );
-          System.out.println(kmlFound[0].getAbsolutePath());
-        model.addAttribute("kmlPath",kmlFound[0].getAbsolutePath());
-        }
+
 
         return "detail-sortie";
+    }
+
+    @CrossOrigin("*")
+    @GetMapping(value = "kml/{filename}", produces = "text/plain;charset=UTF-8")
+    public @ResponseBody byte[] getFile(@PathVariable("filename") String filename) throws IOException {
+        FileInputStream in = new FileInputStream("upload-dir/"+filename);
+        return IOUtils.toByteArray(in);
     }
 }

@@ -30,4 +30,9 @@ public class SortieManagerImpl implements SortieManager{
     public Sortie findById(Integer sortieId) {
         return sortieDao.findById(sortieId).orElse(null);
     }
+
+    @Override
+    public Sortie findByFilename(String kmlname) {
+        return sortieDao.findByFilename(kmlname);
+    }
 }

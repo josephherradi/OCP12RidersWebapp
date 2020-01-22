@@ -44,6 +44,9 @@ public class Sortie {
     @Column(name="nbr_etapes")
     private Integer nbrEtapes;
 
+    @Column(name = "filename")
+    private String filename;
+
 
     public int getSortieId() {
         return sortieId;
@@ -133,6 +136,14 @@ public class Sortie {
         this.nom = nom;
     }
 
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
     public Sortie() {
     }
 
@@ -150,6 +161,7 @@ public class Sortie {
                 ", duree='" + duree + '\'' +
                 ", distance=" + distance +
                 ", nbrEtapes=" + nbrEtapes +
+                ", filename='" + filename + '\'' +
                 '}';
     }
 }
