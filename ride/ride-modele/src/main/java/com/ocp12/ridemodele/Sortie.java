@@ -160,6 +160,14 @@ public class Sortie {
         this.statut = statut;
     }
 
+    public List<Participant> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<Participant> participants) {
+        this.participants = participants;
+    }
+
     public Sortie() {
     }
 
@@ -179,6 +187,7 @@ public class Sortie {
                 ", nbrEtapes=" + nbrEtapes +
                 ", filename='" + filename + '\'' +
                 ", statut='" + statut + '\'' +
+                ", participants=" + participants +
                 '}';
     }
 }

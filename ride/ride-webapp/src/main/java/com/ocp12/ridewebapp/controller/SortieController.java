@@ -1,7 +1,9 @@
 package com.ocp12.ridewebapp.controller;
 
+import com.ocp12.ridebusiness.ParticipantManager;
 import com.ocp12.ridebusiness.SortieManager;
 import com.ocp12.rideconsumer.dto.SortieKmlDto;
+import com.ocp12.ridemodele.Participant;
 import com.ocp12.ridemodele.Sortie;
 import com.ocp12.ridemodele.Utilisateur;
 import org.apache.commons.io.IOUtils;
@@ -20,6 +22,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,9 +32,12 @@ public class SortieController {
     private static String UPLOAD_FOLDER = "upload-dir/";
 
 
+
     @Autowired
     private SortieManager sortieManager;
 
+    @Autowired
+    private ParticipantManager participantManager;
 
 
     @RequestMapping(value = "/liste",method = RequestMethod.GET)
@@ -94,5 +100,30 @@ public class SortieController {
     public @ResponseBody byte[] getFile(@PathVariable("filename") String filename) throws IOException {
         FileInputStream in = new FileInputStream("upload-dir/"+filename);
         return IOUtils.toByteArray(in);
+    }
+
+    @RequestMapping(value = "{sortieId}/joinSortie")
+    public String getSortie(@PathVariable("sortieId") Integer sortieId,Model model){
+        Sortie laSortie=sortieManager.findById(sortieId);
+        model.addAttribute("laSortie",laSortie);
+        return "join-sortie";
+    }
+
+    @RequestMapping(value = "saveParticipant")
+    public String joinSortie(@ModelAttribute Sortie laSortie,BindingResult result,HttpServletRequest request, HttpSession session){
+        Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
+        List<Participant> participantList=laSortie.getParticipants();
+        Participant participant=new Participant();
+        participant.setSortie(laSortie);
+        participant.setUtilisateur(loggedUser);
+        if (participantList==null){
+            participantList=new ArrayList<>();
+            participantList.add(participant);
+
+        }
+        participantList.add(participant);
+        sortieManager.saveSortie(laSortie);
+        participantManager.saveParticipant(participant);
+        return "redirect:/sorties/"+laSortie.getSortieId()+"/details";
     }
 }
