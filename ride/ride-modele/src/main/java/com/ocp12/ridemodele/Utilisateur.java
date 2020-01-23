@@ -2,6 +2,7 @@ package com.ocp12.ridemodele;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -20,6 +21,7 @@ public class Utilisateur {
 
     @Column(name="password")
     private  String password;
+
 
     public int getId() {
         return id;

@@ -13,10 +13,25 @@
 <body>
 	<div class="container">
 		<div class="col-md-offset-1 col-md-10">
+		<div style="text-align: right">
+                                    				<a href="${pageContext.request.contextPath}/account/logout"
+                                    					class="button medium hpbottom">Se déconnecter</a>
+                                    			</div>
+                                    			<p>Bienvenue ${sessionScope.user}</p>
+
+
 			<br>
 
 
 			<br>
+
+
+        		<br>
+			<input type="button" value="Nouvelle sortie"
+        					onclick="window.location.href='showFormSortie'; return false;"
+        					class="btn btn-primary" />
+         <br>
+         <br>
 			<h2>Liste des sorties</h2>
 
 			<table class="table table-striped table-bordered">

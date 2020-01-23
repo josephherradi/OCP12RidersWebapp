@@ -3,6 +3,7 @@ package com.ocp12.ridemodele;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -46,6 +47,13 @@ public class Sortie {
 
     @Column(name = "filename")
     private String filename;
+
+    @Column(name = "statut")
+    private String statut;
+
+    @OneToMany(targetEntity=Participant.class, mappedBy="",cascade=CascadeType.ALL)
+    @ElementCollection(targetClass=Participant.class)
+    private List<Participant> participants;
 
 
     public int getSortieId() {
@@ -144,6 +152,14 @@ public class Sortie {
         this.filename = filename;
     }
 
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
     public Sortie() {
     }
 
@@ -162,6 +178,7 @@ public class Sortie {
                 ", distance=" + distance +
                 ", nbrEtapes=" + nbrEtapes +
                 ", filename='" + filename + '\'' +
+                ", statut='" + statut + '\'' +
                 '}';
     }
 }

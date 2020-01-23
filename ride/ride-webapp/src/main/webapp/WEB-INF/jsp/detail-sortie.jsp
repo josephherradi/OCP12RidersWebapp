@@ -6,8 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>details sortie</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <style>
       #map-canvas {
        height: 600px;
@@ -31,11 +30,13 @@
 <body>
 	<div class="container">
 		<div class="col-md-offset-2 col-md-6">
+
 			<br>
 
 
 			<br>
 			<h2>Détail de la sortie </h2>
+			<br>
 			<table class="table table-striped table-bordered">
 				<tr>
 				    <th>organisateur</th>
@@ -83,13 +84,21 @@
 
 			</table>
 
-		<div id="map-canvas"></div>  <div id="capture"></div>
-
-
+		<div id="map-canvas"></div>  <div id="capture">
+		<br>
+        		<br>
+                	<div style="text-align: left">
+                                				<a href="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/download/${laSortie.filename}"
+                                					class="button medium hpbottom">Télécharger itinéraire KML</a>
+                                			</div>
 		</div>
+
 	</div>
 
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=">
+
 </script>
 <script src="/js/geoxml3.js"></script>
 <script>
