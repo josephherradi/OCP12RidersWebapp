@@ -114,6 +114,7 @@ public class SortieController {
         Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
         List<Participant> participantList=laSortie.getParticipants();
         Participant participant=new Participant();
+        participant.setStatut("en attente");
         participant.setSortie(laSortie);
         participant.setUtilisateur(loggedUser);
         if (participantList==null){
@@ -122,8 +123,16 @@ public class SortieController {
 
         }
         participantList.add(participant);
+        laSortie.setParticipants(participantList);
         sortieManager.saveSortie(laSortie);
-        participantManager.saveParticipant(participant);
         return "redirect:/sorties/"+laSortie.getSortieId()+"/details";
+    }
+
+    @RequestMapping(value = "userSorties")
+    public String userSorties(Model model,HttpServletRequest request, HttpSession session){
+        Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
+        List<Participant> userParticipant=participantManager.findByUser(loggedUser);
+        model.addAttribute("userParticipant",userParticipant);
+        return "user-sorties";
     }
 }

@@ -18,6 +18,9 @@ public class Participant {
     @JoinColumn(name = "utilisateur_id")
     private  Utilisateur utilisateur;
 
+    @Column(name = "statut")
+    private String statut;
+
 
     public int getId() {
         return id;
@@ -43,6 +46,14 @@ public class Participant {
         this.utilisateur = utilisateur;
     }
 
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
     public Participant() {
     }
 
@@ -52,6 +63,7 @@ public class Participant {
                 "id=" + id +
                 ", sortie=" + sortie +
                 ", utilisateur=" + utilisateur +
+                ", statut='" + statut + '\'' +
                 '}';
     }
 }

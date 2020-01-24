@@ -29,7 +29,6 @@
 					<form:hidden path="sortieId" />
 					<form:hidden path="organisateur"/>
 					<form:hidden path="nom"/>
-					<form:hidden path=date/>
 					<form:hidden path="description"/>
 					<form:hidden path="nbrParticipants"/>
 					<form:hidden path="niveau"/>

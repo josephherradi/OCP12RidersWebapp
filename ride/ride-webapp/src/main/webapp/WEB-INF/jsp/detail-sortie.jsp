@@ -80,17 +80,41 @@
 					<th>Hors piste</th>
 					<td>${laSortie.horspiste}</td>
 				</tr>
+                <tr>
+                   <th>Statut</th>
+                   <td>${laSortie.statut}</td>
+                </tr>
 
 
 			</table>
 
 		<div id="map-canvas"></div>  <div id="capture">
 		<br>
-        		<br>
                 	<div style="text-align: left">
                                 				<a href="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/download/${laSortie.filename}"
                                 					class="button medium hpbottom">Télécharger itinéraire KML</a>
-                                			</div>
+         <br>
+         <br>
+                   <table class="table table-striped table-bordered">
+                    <tr>
+                                    <th>Participants</th>
+                                    <th>statut</th>
+
+                    </tr>
+
+                  <c:forEach var="tempParticipants"
+                  					items="${laSortie.participants}">
+                                 <tr>
+                 					<td>${tempParticipants.utilisateur.identifiant}</td>
+                 					<td>${tempParticipants.statut}</td>
+
+                 				</tr>
+                  </c:forEach>
+                 </table>
+              	</div>
+
+
+
 		</div>
 
 	</div>

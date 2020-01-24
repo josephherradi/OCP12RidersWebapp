@@ -17,7 +17,7 @@ public class Sortie {
     @Column(name ="nom")
     private String nom;
 
-    @Column(name = "date")
+    @Column(name = "date",updatable=false)
     private Date date;
 
     @Column(name="description")
@@ -51,7 +51,7 @@ public class Sortie {
     @Column(name = "statut")
     private String statut;
 
-    @OneToMany(targetEntity=Participant.class, mappedBy="",cascade=CascadeType.ALL)
+    @OneToMany(targetEntity=Participant.class, mappedBy="sortie",cascade=CascadeType.ALL)
     @ElementCollection(targetClass=Participant.class)
     private List<Participant> participants;
 

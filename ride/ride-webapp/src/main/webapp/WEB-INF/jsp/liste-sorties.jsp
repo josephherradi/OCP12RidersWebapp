@@ -41,6 +41,7 @@
 					<th>nom</th>
 					<th>description</th>
 					<th>durée</th>
+					<th>statut</th>
 
 
 				</tr>
@@ -59,6 +60,7 @@
 						<td>${tempSorties.nom}</td>
 						<td>${tempSorties.description}</td>
 						<td>${tempSorties.duree}</td>
+						<td>${tempSorties.statut}</td>
 
 
 
