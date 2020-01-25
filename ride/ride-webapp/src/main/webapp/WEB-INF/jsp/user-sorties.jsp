@@ -16,7 +16,8 @@
 
          <br>
          <br>
-			<h2>Mes sorties</h2>
+			<h2>Je participe aux sorties:</h2>
+			<br>
 
 			<table class="table table-striped table-bordered">
 				<tr>
@@ -25,7 +26,9 @@
 					<th>nom</th>
 					<th>description</th>
 					<th>durée</th>
-					<th>statut</th>
+					<th>statut organisateur</th>
+                    <th>statut participant</th>
+
 
 
 				</tr>
@@ -35,7 +38,12 @@
 					<c:url var="detailsLink"
 						value="/sorties/${tempParticipant.sortie.sortieId}/details">
 					</c:url>
-
+                    <c:url var="deleteLink" value="/sorties/deleteParticipant">
+						<c:param name="participantId" value="${tempParticipant.id}" />
+					</c:url>
+                    <c:url var="confirmLink" value="/sorties/confirmParticipant">
+						<c:param name="participantId" value="${tempParticipant.id}" />
+					</c:url>
 
 
 					<tr>
@@ -45,11 +53,20 @@
 						<td>${tempParticipant.sortie.description}</td>
 						<td>${tempParticipant.sortie.duree}</td>
 						<td>${tempParticipant.sortie.statut}</td>
+						<td>${tempParticipant.statut}</td>
 
 
 
 
-						<td><a href="${detailsLink}">détails</a></td>
+
+						<td><a href="${detailsLink}">détails</a>|
+                        <a
+								href="${deleteLink}"
+								onclick="if (!(confirm('Se désister de la sortie?'))) return false">Me désister</a> |
+                       <a
+								href="${confirmLink}"
+								onclick="if (!(confirm('Confirmer la sortie?'))) return false">Confirmer</a>
+						</td>						</td>
 
 
 

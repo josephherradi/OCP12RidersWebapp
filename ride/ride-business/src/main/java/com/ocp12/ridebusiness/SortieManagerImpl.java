@@ -2,6 +2,7 @@ package com.ocp12.ridebusiness;
 
 import com.ocp12.rideconsumer.dao.SortieDao;
 import com.ocp12.ridemodele.Sortie;
+import com.ocp12.ridemodele.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -34,5 +35,10 @@ public class SortieManagerImpl implements SortieManager{
     @Override
     public Sortie findByFilename(String kmlname) {
         return sortieDao.findByFilename(kmlname);
+    }
+
+    @Override
+    public List<Sortie> organisateurSorties(Utilisateur organisateur) {
+        return sortieDao.findByOrganisateur(organisateur);
     }
 }

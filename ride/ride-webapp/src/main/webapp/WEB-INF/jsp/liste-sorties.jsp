@@ -25,13 +25,25 @@
 
 			<br>
 
-
-        		<br>
 			<input type="button" value="Nouvelle sortie"
         					onclick="window.location.href='showFormSortie'; return false;"
         					class="btn btn-primary" />
          <br>
          <br>
+         <br>
+         <div style="text-align: left">
+                                             				<a href="${pageContext.request.contextPath}/sorties/userSorties"
+                                             					class="button medium hpbottom">Sorties auxquelles je participe</a>
+                                             			</div>
+                         <br>
+
+                 		<br>
+
+        <div style="text-align: left">
+                                             				<a href="${pageContext.request.contextPath}/sorties/organisateurSorties"
+                                             					class="button medium hpbottom">Sorties que j'organise</a>
+                                             			</div>
+                         <br>
 			<h2>Liste des sorties</h2>
 
 			<table class="table table-striped table-bordered">

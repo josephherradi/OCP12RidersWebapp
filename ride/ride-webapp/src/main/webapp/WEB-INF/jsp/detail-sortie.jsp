@@ -30,6 +30,22 @@
 <body>
 	<div class="container">
 		<div class="col-md-offset-2 col-md-6">
+		<br>
+		<br>
+				<div style="text-align: right">Statut
+                </div>
+				<div style="text-align: right">
+        				<a href="${pageContext.request.contextPath}/sorties/confirmSortie?sortieId=${laSortie.sortieId}"
+        					class="button medium hpbottom" onclick="if (!(confirm('Confirmer la sortie?'))) return false">Confirmer</a>
+        			</div>
+				<div style="text-align: right">
+        				<a href="${pageContext.request.contextPath}/sorties/annuleSortie?sortieId=${laSortie.sortieId}"
+        					class="button medium hpbottom" onclick="if (!(confirm('Annuler la sortie?'))) return false">Annuler</a>
+        			</div>
+				<div style="text-align: right">
+        				<a href="${pageContext.request.contextPath}/sorties/termineSortie?sortieId=${laSortie.sortieId}"
+        					class="button medium hpbottom" onclick="if (!(confirm('Terminer la sortie?'))) return false">Terminer</a>
+        			</div>
 
 			<br>
 

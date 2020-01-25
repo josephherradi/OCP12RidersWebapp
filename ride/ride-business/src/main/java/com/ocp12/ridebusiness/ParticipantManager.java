@@ -9,5 +9,7 @@ public interface ParticipantManager {
     public List<Participant> participantsList();
     public void saveParticipant(Participant leParticipant);
     public List<Participant> findByUser(Utilisateur utilisateur);
+    public void deleteParticipant(Integer participantId);
+    public Participant findById(Integer participantId);
 
 }

@@ -27,4 +27,14 @@ public class ParticipantManagerImpl implements ParticipantManager {
     public List<Participant> findByUser(Utilisateur utilisateur) {
         return participantDao.findByUtilisateur(utilisateur);
     }
+
+    @Override
+    public void deleteParticipant(Integer participantId) {
+        participantDao.deleteById(participantId);
+    }
+
+    @Override
+    public Participant findById(Integer participantId) {
+        return participantDao.findById(participantId).orElse(null);
+    }
 }

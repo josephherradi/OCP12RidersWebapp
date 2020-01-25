@@ -62,6 +62,7 @@ public class SortieController {
         laSortie.setNiveau(sortieKmlDto.getNiveau());
         laSortie.setNom(sortieKmlDto.getNom());
         laSortie.setNbrParticipants(sortieKmlDto.getNbrParticipants());
+        laSortie.setStatut("en attente");
         sortieManager.saveSortie(laSortie);
         MultipartFile file= sortieKmlDto.getFile();
         try {
@@ -135,4 +136,53 @@ public class SortieController {
         model.addAttribute("userParticipant",userParticipant);
         return "user-sorties";
     }
+
+    @RequestMapping(value = "organisateurSorties")
+    public String organisateurSorties(Model model,HttpServletRequest request, HttpSession session){
+        Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
+        List<Sortie> organisateurSorties=sortieManager.organisateurSorties(loggedUser);
+        model.addAttribute("organisateurSorties",organisateurSorties);
+        return "organisateur-sorties";
+    }
+
+    @RequestMapping("deleteParticipant")
+    public String deleteParticipant(@RequestParam("participantId") Integer participantId){
+
+        participantManager.deleteParticipant(participantId);
+        return "redirect:/sorties/userSorties";
+    }
+
+    @RequestMapping("confirmParticipant")
+    public String confirmParticipant(@RequestParam("participantId") Integer participantId){
+        Participant leParticipant=participantManager.findById(participantId);
+        leParticipant.setStatut("Confirme");
+        participantManager.saveParticipant(leParticipant);
+        return "redirect:/sorties/userSorties";
+    }
+
+    @RequestMapping("annuleSortie")
+    public String annuleSortie(@RequestParam("sortieId") Integer sortieId){
+        Sortie laSortie=sortieManager.findById(sortieId);
+        laSortie.setStatut("Annule");
+        sortieManager.saveSortie(laSortie);
+        return "redirect:/sorties/"+laSortie.getSortieId()+"/details";
+
+    }
+
+    @RequestMapping("confirmSortie")
+    public String confirmSortie(@RequestParam("sortieId") Integer sortieId){
+        Sortie laSortie=sortieManager.findById(sortieId);
+        laSortie.setStatut("Confirme");
+        sortieManager.saveSortie(laSortie);
+        return "redirect:/sorties/"+laSortie.getSortieId()+"/details";
+    }
+
+    @RequestMapping("termineSortie")
+    public String termineSortie(@RequestParam("sortieId") Integer sortieId){
+        Sortie laSortie=sortieManager.findById(sortieId);
+        laSortie.setStatut("Termine");
+        sortieManager.saveSortie(laSortie);
+        return "redirect:/sorties/"+laSortie.getSortieId()+"/details";
+    }
+
 }
