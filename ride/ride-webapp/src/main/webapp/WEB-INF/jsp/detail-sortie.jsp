@@ -36,21 +36,26 @@
                 </div>
 				<div style="text-align: right">
         				<a href="${pageContext.request.contextPath}/sorties/confirmSortie?sortieId=${laSortie.sortieId}"
-        					class="button medium hpbottom" onclick="if (!(confirm('Confirmer la sortie?'))) return false">Confirmer</a>
+        					class="button medium hpbottom" onclick="if (!(confirm('Confirmer la sortie?'))) return false">Confirmé</a>
         			</div>
 				<div style="text-align: right">
         				<a href="${pageContext.request.contextPath}/sorties/annuleSortie?sortieId=${laSortie.sortieId}"
-        					class="button medium hpbottom" onclick="if (!(confirm('Annuler la sortie?'))) return false">Annuler</a>
+        					class="button medium hpbottom" onclick="if (!(confirm('Annuler la sortie?'))) return false">Annulé</a>
         			</div>
 				<div style="text-align: right">
         				<a href="${pageContext.request.contextPath}/sorties/termineSortie?sortieId=${laSortie.sortieId}"
-        					class="button medium hpbottom" onclick="if (!(confirm('Terminer la sortie?'))) return false">Terminer</a>
+        					class="button medium hpbottom" onclick="if (!(confirm('Terminer la sortie?'))) return false">Terminé</a>
         			</div>
 
 			<br>
 
 
 			<br>
+
+
+            			<input type="button" value="Participer à la sortie"
+                    					onclick="window.location.href='joinSortie'; return false;"
+                    					class="btn btn-primary" />
 			<h2>Détail de la sortie </h2>
 			<br>
 			<table class="table table-striped table-bordered">

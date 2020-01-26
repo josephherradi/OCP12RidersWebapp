@@ -1,8 +1,12 @@
 package com.ocp12.ridewebapp.controller;
 
+import com.ocp12.ridebusiness.EtapeManager;
 import com.ocp12.ridebusiness.ParticipantManager;
 import com.ocp12.ridebusiness.SortieManager;
 import com.ocp12.rideconsumer.dto.SortieKmlDto;
+import com.ocp12.rideconsumer.kmlparser.CoordinatesBean;
+import com.ocp12.rideconsumer.kmlparser.KmlParser;
+import com.ocp12.ridemodele.Etape;
 import com.ocp12.ridemodele.Participant;
 import com.ocp12.ridemodele.Sortie;
 import com.ocp12.ridemodele.Utilisateur;
@@ -22,9 +26,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RequestMapping("/sorties")
 @Controller
@@ -38,6 +40,12 @@ public class SortieController {
 
     @Autowired
     private ParticipantManager participantManager;
+
+    @Autowired
+    private KmlParser kmlParser;
+
+    @Autowired
+    private EtapeManager etapeManager;
 
 
     @RequestMapping(value = "/liste",method = RequestMethod.GET)
@@ -71,6 +79,16 @@ public class SortieController {
             laSortie.setFilename(file.getOriginalFilename());
             sortieManager.saveSortie(laSortie);
             Files.write(path, bytes);
+            List<CoordinatesBean> placemarksList=kmlParser.runParser(UPLOAD_FOLDER + file.getOriginalFilename());
+
+            for (int i = 0; i < placemarksList.size(); i++) {
+                Etape etape =new Etape();
+                etape.setSortie(laSortie);
+                etape.setNom(placemarksList.get(i).getPlaceMarkName());
+                etape.setLatitude(placemarksList.get(i).getLatitude());
+                etape.setLongitude(placemarksList.get(i).getLongiture());
+                etapeManager.saveEtape(etape);
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

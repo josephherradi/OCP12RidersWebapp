@@ -1,5 +1,8 @@
 package com.ocp12.ridewebapp.controller;
 
+import com.ocp12.rideconsumer.kmlparser.CoordinatesBean;
+import com.ocp12.rideconsumer.kmlparser.KmlParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Controller
 public class KmlUploadController {
