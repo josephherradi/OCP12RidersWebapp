@@ -11,14 +11,12 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 
-public class KmlParser {
-    private List<CoordinatesBean> coordinatesBeanList=new ArrayList<>();
+ public class KmlParser {
 
 
 
-    public List<CoordinatesBean> runParser(String folder) throws FileNotFoundException {
+    public static List<CoordinatesBean> runParser(String folder) throws FileNotFoundException {
         List<CoordinatesBean> coordinatesBeanList=new ArrayList<>();
         File file = new File(folder);
         InputStream inputStream = new FileInputStream(file);
@@ -29,7 +27,8 @@ public class KmlParser {
 
     }
 
-    private List<CoordinatesBean> parseFeature(Feature feature) {
+    private static List<CoordinatesBean> parseFeature(Feature feature) {
+        List<CoordinatesBean> coordinatesBeanList=new ArrayList<>();
         if (feature != null) {
             Document document = (Document) feature;
             List<Feature> featureList = document.getFeature();
@@ -51,7 +50,7 @@ public class KmlParser {
     }
 
 
-    private CoordinatesBean parseGeometry(Geometry geometry, Placemark placemark) {
+    private static CoordinatesBean parseGeometry(Geometry geometry, Placemark placemark) {
         CoordinatesBean coordinatesBean=new CoordinatesBean();
         if (geometry != null) {
             if (geometry instanceof Point) {
@@ -69,7 +68,7 @@ public class KmlParser {
 
 
 
-    private CoordinatesBean parseCoordinate(Coordinate coordinate,Placemark placemark) {
+    private static CoordinatesBean parseCoordinate(Coordinate coordinate,Placemark placemark) {
         CoordinatesBean coordinatesBean=new CoordinatesBean();
         if(coordinate != null) {
             coordinatesBean.setPlaceMarkName(placemark.getName());

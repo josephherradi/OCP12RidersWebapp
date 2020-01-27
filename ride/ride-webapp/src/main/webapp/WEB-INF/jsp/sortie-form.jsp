@@ -28,6 +28,10 @@
 
 					<form:hidden path="sortieId" />
 					<form:hidden path="organisateur"/>
+					<form:hidden path="nbrEtapes"/>
+
+
+
 
 					<div class="form-group">
 						<label for="nom" class="col-md-3 control-label">nom</label>
@@ -66,12 +70,6 @@
 						<label for="distance" class="col-md-3 control-label">distance (km)</label>
 						<div class="col-md-9">
 							<form:input path="distance" cssClass="form-control" />
-						</div>
-					</div>
-                    <div class="form-group">
-						<label for="nbrEtapes" class="col-md-3 control-label">nombre étapes</label>
-						<div class="col-md-9">
-							<form:input path="nbrEtapes" cssClass="form-control" />
 						</div>
 					</div>
 

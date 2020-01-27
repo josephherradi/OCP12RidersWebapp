@@ -56,6 +56,12 @@
             			<input type="button" value="Participer à la sortie"
                     					onclick="window.location.href='joinSortie'; return false;"
                     					class="btn btn-primary" />
+             <br>
+             <br>
+<div style="text-align: left">
+        				<a href="${pageContext.request.contextPath}/etapes/etapesList?sortieId=${laSortie.sortieId}"
+        					class="button medium hpbottom">Liste des étapes</a>
+        			</div>
 			<h2>Détail de la sortie </h2>
 			<br>
 			<table class="table table-striped table-bordered">
@@ -79,6 +85,10 @@
 				<tr>
 					<th>durée</th>
 					<td>${laSortie.duree}</td>
+				</tr>
+                <tr>
+					<th>Nombre étapes</th>
+					<td>${laSortie.nbrEtapes}</td>
 				</tr>
 
                 <tr>
