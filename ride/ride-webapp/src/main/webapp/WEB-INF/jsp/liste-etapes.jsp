@@ -13,7 +13,11 @@
 <body>
 	<div class="container">
 		<div class="col-md-offset-1 col-md-10">
-
+        <br>
+        <br>
+        <div style="text-align: left">
+        				<a href="${pageContext.request.contextPath}/sorties/${listetapes[0].sortie.sortieId}/details"
+        					class="button medium hpbottom">Liste des étapes</a>
          <br>
          <br>
 			<h2>Liste des étapes</h2>
@@ -23,17 +27,23 @@
 				<tr>
 				    <th>nom</th>
 					<th>distance (km à vol d'oiseau)</th>
+					<th>commentaire</th>
 
 
 
 				</tr>
 
 				<c:forEach var="tempEtape" items="${listetapes}">
-
+                    <c:url var="commentLink"
+						value="/etapes/getEtape?etapeId=${tempEtape.etapeId}">
+					</c:url>
 
 					<tr>
 						<td>${tempEtape.nom}</td>
 						<td>${tempEtape.distance}</td>
+						<td>${tempEtape.description}</td>
+
+						<td><a href="${commentLink}">Commenter</a></td>
 
 					</tr>
 				</c:forEach>

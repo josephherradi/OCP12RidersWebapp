@@ -21,7 +21,7 @@ private Double latitude;
 
 private Double longitude;
 
-@JoinColumn(name ="sortie_id")
+@JoinColumn(name ="sortie_id",updatable = false)
 @ManyToOne
 private Sortie sortie;
 

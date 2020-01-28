@@ -19,7 +19,7 @@ import java.util.List;
 
 @Controller
 public class KmlUploadController {
-    private static String UPLOAD_FOLDER = "upload-dir/";
+    private static String UPLOAD_FOLDER = "upload-dir/pics/";
 
 
     @PostMapping("/upload")

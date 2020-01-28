@@ -8,6 +8,9 @@ import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,4 +36,19 @@ public class EtapeController {
 
     return "liste-etapes";
 }
+
+@RequestMapping("getEtape")
+    public String getEtape(@RequestParam("etapeId") Integer etapeId, Model model){
+    Etape letape=etapeManager.findById(etapeId);
+    model.addAttribute("letape",letape);
+    return "etape-form";
+}
+
+@RequestMapping("saveEtape")
+    public String saveEtape(@ModelAttribute Etape letape, @RequestParam("sortieId") Integer sortieId){
+    etapeManager.saveEtape(letape,sortieId);
+    return "redirect:/etapes/etapesList?sortieId="+sortieId;
+}
+
+
 }

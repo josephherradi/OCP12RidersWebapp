@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <style>
       #map-canvas {
-       height: 600px;
-       width: 600px;
+       height: 500px;
+       width: 500px;
        overflow: hidden;
        float: left;
        border: thin solid #333;
@@ -18,10 +18,10 @@
        .gm-style-iw {
              text-align: center;}
       #capture {
-           height: 300px;
-           width: 300px;
+           height: 500px;
+           width: 200px;
            overflow: hidden;
-           float: left;
+           float: right;
            }
 
     </style>
@@ -29,7 +29,7 @@
 
 <body>
 	<div class="container">
-		<div class="col-md-offset-2 col-md-6">
+		<div class="col-md-offset-2 col-md-8">
 		<br>
 		<br>
 				<div style="text-align: right">Statut
@@ -119,11 +119,17 @@
 
 			</table>
 
-		<div id="map-canvas"></div>  <div id="capture">
+		<div id="map-canvas"></div>
+		<div id="capture"></div>
 		<br>
+		</div>
+				<div class="col-md-offset-2 col-md-8">
+
+
                 	<div style="text-align: left">
                                 				<a href="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/download/${laSortie.filename}"
-                                					class="button medium hpbottom">Télécharger itinéraire KML</a>
+                               					class="button medium hpbottom">Télécharger itinéraire KML</a>
+
          <br>
          <br>
                    <table class="table table-striped table-bordered">
@@ -142,11 +148,12 @@
                  				</tr>
                   </c:forEach>
                  </table>
+                 <br>
+              	</div>
               	</div>
 
 
 
-		</div>
 
 	</div>
 
@@ -177,7 +184,14 @@
                          " <img src=" + event.feature.getProperty("icon") + ">"
                          + "<br /><strong> " + event.feature.getProperty("city") + "</strong>"
                          + "<br /> " + event.feature.getProperty("temperature") + "&deg;C"
-                         + "<br /> " + event.feature.getProperty("weather")
+                         + "<br /> " + event.feature.getProperty("description")
+                         + "<br /> " + "humidité: "+ event.feature.getProperty("humidity")+" %"
+                         + "<br /> " + "vitesse vent : "+ event.feature.getProperty("windSpeed")*3.6+" km/h"
+                         + "<br /> " + "Pression : "+ event.feature.getProperty("pressure")+" hPa"
+                         + "<br /> " + "Température min : "+ event.feature.getProperty("min")+"&deg;C"
+                         + "<br /> " + "Température max : "+ event.feature.getProperty("max")+"&deg;C"
+
+
                          );
                          var content = infowindow.getContent();
                          var testimonial = document.getElementById('capture');
@@ -254,6 +268,7 @@
                   humidity: weatherItem.main.humidity,
                   pressure: weatherItem.main.pressure,
                   windSpeed: weatherItem.wind.speed,
+                  description: weatherItem.weather[0].description,
                   windDegrees: weatherItem.wind.deg,
                   windGust: weatherItem.wind.gust,
                   icon: "http://openweathermap.org/img/w/"

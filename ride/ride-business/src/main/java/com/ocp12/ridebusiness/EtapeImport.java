@@ -30,11 +30,10 @@ public class EtapeImport {
                 Double distance=new DistanceCalculator().distance(placemarksList.get(i).getLatitude(),placemarksList.get(i).getLongiture(),placemarksList.get(i-1).getLatitude(),placemarksList.get(i-1).getLongiture(),"K");
                 etape.setDistance(distance);
             }
-            etape.setSortie(laSortie);
             etape.setNom(placemarksList.get(i).getPlaceMarkName());
             etape.setLatitude(placemarksList.get(i).getLatitude());
             etape.setLongitude(placemarksList.get(i).getLongiture());
-            etapeManager.saveEtape(etape);
+            etapeManager.saveEtape(etape,laSortie.getSortieId());
         }
     return Nmarkers;
     }
