@@ -3,8 +3,8 @@ package com.ocp12.ridemodele;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "picnamesortie")
-public class PicNamesSortie {
+@Table(name = "picnamessortie")
+public class Picnamessortie {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
@@ -38,9 +38,12 @@ public class PicNamesSortie {
         this.filename = filename;
     }
 
+    public Picnamessortie() {
+    }
+
     @Override
     public String toString() {
-        return "PicNamesSortie{" +
+        return "Picnamessortie{" +
                 "id=" + id +
                 ", sortieId=" + sortieId +
                 ", filename='" + filename + '\'' +

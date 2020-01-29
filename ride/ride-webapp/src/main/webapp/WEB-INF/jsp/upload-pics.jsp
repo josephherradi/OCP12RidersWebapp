@@ -24,7 +24,7 @@
 
             <div class="form-group">
 			<div class="col-md-offset-2 col-md-9">
-				<form:form action="${pageContext.request.contextPath}/sorties/savepictures" cssClass="form-horizontal" method="post"  enctype="multipart/form-data" modelAttribute="picNamesSortieId">
+				<form:form action="${pageContext.request.contextPath}/sorties/savepictures" cssClass="form-horizontal" method="post"  enctype="multipart/form-data" modelAttribute="picnamessortieId">
 
 					<form:hidden path="sortieId" />
 

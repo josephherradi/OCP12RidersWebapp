@@ -58,10 +58,20 @@
                     					class="btn btn-primary" />
              <br>
              <br>
+            			<input type="button" value="uploader les photos"
+                    					onclick="window.location.href='uploadpics'; return false;"
+                    					class="btn btn-primary" />
+             <br>
+             <br>
 <div style="text-align: left">
         				<a href="${pageContext.request.contextPath}/etapes/etapesList?sortieId=${laSortie.sortieId}"
         					class="button medium hpbottom">Liste des étapes</a>
         			</div>
+        		<br>
+
+        		<div style="text-align: left">
+                        				<a href="${pageContext.request.contextPath}/sorties/${laSortie.sortieId}/showPictures"
+                        					class="button medium hpbottom">Voir les photos</a>
 			<h2>Détail de la sortie </h2>
 			<br>
 			<table class="table table-striped table-bordered">
