@@ -1,7 +1,6 @@
 package com.ocp12.rideconsumer.dao;
 
-import com.ocp12.ridemodele.Etape;
-import com.ocp12.ridemodele.Sortie;
+import com.ocp12.ridemodele.Commentaire;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public interface EtapeDao extends JpaRepository<Etape,Integer> {
-    @Query("select p from Etape p where p.sortie= :sortieBean")
-    List<Etape> findBySortie(@Param("sortieBean")Sortie sortie);
+public interface CommentaireDao extends JpaRepository<Commentaire,Integer> {
+    @Query("select c from Commentaire c where c.participant.sortie.sortieId= :idSortie")
+    public List<Commentaire> findBySortie(@Param("idSortie") Integer sortieId);
 }

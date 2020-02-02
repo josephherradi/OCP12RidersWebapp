@@ -52,7 +52,6 @@
 
 			<br>
 
-
             			<input type="button" value="Participer à la sortie"
                     					onclick="window.location.href='joinSortie'; return false;"
                     					class="btn btn-primary" />
@@ -60,6 +59,11 @@
              <br>
             			<input type="button" value="uploader les photos"
                     					onclick="window.location.href='uploadpics'; return false;"
+                    					class="btn btn-primary" />
+             <br>
+             <br>
+            			<input type="button" value="commenter la sortie"
+                    					onclick="window.location.href='showCommentForm'; return false;"
                     					class="btn btn-primary" />
              <br>
              <br>
@@ -72,6 +76,12 @@
         		<div style="text-align: left">
                         				<a href="${pageContext.request.contextPath}/sorties/${laSortie.sortieId}/showPictures"
                         					class="button medium hpbottom">Voir les photos</a>
+        		<br>
+        		<br>
+
+        		<div style="text-align: left">
+                        				<a href="${pageContext.request.contextPath}/sorties/${laSortie.sortieId}/commentsList"
+                        					class="button medium hpbottom">Commentaires</a>
 			<h2>Détail de la sortie </h2>
 			<br>
 			<table class="table table-striped table-bordered">

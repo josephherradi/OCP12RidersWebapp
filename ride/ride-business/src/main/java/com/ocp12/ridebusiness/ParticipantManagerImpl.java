@@ -2,6 +2,7 @@ package com.ocp12.ridebusiness;
 
 import com.ocp12.rideconsumer.dao.ParticipantDao;
 import com.ocp12.ridemodele.Participant;
+import com.ocp12.ridemodele.Sortie;
 import com.ocp12.ridemodele.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,10 @@ public class ParticipantManagerImpl implements ParticipantManager {
     @Override
     public Participant findById(Integer participantId) {
         return participantDao.findById(participantId).orElse(null);
+    }
+
+    @Override
+    public Participant findByUtilisateurAndSortie(Utilisateur utilisateur, Sortie sortie) {
+        return participantDao.findByUtilisateurAndSortie(utilisateur,sortie);
     }
 }
