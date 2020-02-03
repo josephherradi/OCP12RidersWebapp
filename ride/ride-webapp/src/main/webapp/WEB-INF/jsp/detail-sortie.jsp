@@ -51,37 +51,56 @@
 
 
 			<br>
+			<div class="row">
 
+<div class="col-sm-4">
             			<input type="button" value="Participer à la sortie"
                     					onclick="window.location.href='joinSortie'; return false;"
                     					class="btn btn-primary" />
-             <br>
-             <br>
+</div>
+<div class="col-sm-4">
+
             			<input type="button" value="uploader les photos"
                     					onclick="window.location.href='uploadpics'; return false;"
                     					class="btn btn-primary" />
-             <br>
-             <br>
+</div>
+<div class="col-sm-4">
+
             			<input type="button" value="commenter la sortie"
                     					onclick="window.location.href='showCommentForm'; return false;"
                     					class="btn btn-primary" />
+</div>
+</div>
+
              <br>
              <br>
-<div style="text-align: left">
+<div class="row">
+<div class="col-sm-4">
+<div>
         				<a href="${pageContext.request.contextPath}/etapes/etapesList?sortieId=${laSortie.sortieId}"
         					class="button medium hpbottom">Liste des étapes</a>
         			</div>
-        		<br>
 
-        		<div style="text-align: left">
+</div>
+<div class="col-sm-4">
+<div >
                         				<a href="${pageContext.request.contextPath}/sorties/${laSortie.sortieId}/showPictures"
                         					class="button medium hpbottom">Voir les photos</a>
-        		<br>
-        		<br>
 
-        		<div style="text-align: left">
+</div>
+
+</div>
+<div class="col-sm-4">
+<div>
                         				<a href="${pageContext.request.contextPath}/sorties/${laSortie.sortieId}/commentsList"
                         					class="button medium hpbottom">Commentaires</a>
+
+</div>
+</div>
+<br>
+<br>
+
+
 			<h2>Détail de la sortie </h2>
 			<br>
 			<table class="table table-striped table-bordered">
