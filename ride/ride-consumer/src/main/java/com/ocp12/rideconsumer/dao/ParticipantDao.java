@@ -17,4 +17,7 @@ public interface ParticipantDao extends JpaRepository<Participant,Integer> {
 
     @Query("select p from Participant p where p.utilisateur= :user and p.sortie= :lasortie")
     Participant findByUtilisateurAndSortie(@Param("user") Utilisateur utilisateur,@Param("lasortie") Sortie sortie);
+
+    @Query("select p from Participant p where p.sortie.sortieId= :idSortie")
+    List<Participant> findBySortieId(@Param("idSortie") Integer sortieId);
 }

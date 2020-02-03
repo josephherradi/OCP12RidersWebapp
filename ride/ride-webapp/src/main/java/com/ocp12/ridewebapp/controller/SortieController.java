@@ -4,6 +4,7 @@ import com.ocp12.ridebusiness.EtapeImport;
 import com.ocp12.ridebusiness.EtapeManager;
 import com.ocp12.ridebusiness.ParticipantManager;
 import com.ocp12.ridebusiness.SortieManager;
+import com.ocp12.ridebusiness.exceptions.FunctionalException;
 import com.ocp12.rideconsumer.dto.SortieKmlDto;
 import com.ocp12.rideconsumer.kmlparser.CoordinatesBean;
 import com.ocp12.rideconsumer.kmlparser.KmlParser;
@@ -67,7 +68,6 @@ public class SortieController {
         laSortie.setDistance(sortieKmlDto.getDistance());
         laSortie.setDuree(sortieKmlDto.getDuree());
         laSortie.setHorspiste(sortieKmlDto.getHorspiste());
-        laSortie.setNbrEtapes(sortieKmlDto.getNbrEtapes());
         laSortie.setNiveau(sortieKmlDto.getNiveau());
         laSortie.setNom(sortieKmlDto.getNom());
         laSortie.setNbrParticipants(sortieKmlDto.getNbrParticipants());
@@ -125,19 +125,11 @@ public class SortieController {
     @RequestMapping(value = "saveParticipant")
     public String joinSortie(@ModelAttribute Sortie laSortie,BindingResult result,HttpServletRequest request, HttpSession session){
         Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
-        List<Participant> participantList=laSortie.getParticipants();
         Participant participant=new Participant();
         participant.setStatut("en attente");
         participant.setSortie(laSortie);
         participant.setUtilisateur(loggedUser);
-        if (participantList==null){
-            participantList=new ArrayList<>();
-            participantList.add(participant);
-
-        }
-        participantList.add(participant);
-        laSortie.setParticipants(participantList);
-        sortieManager.saveSortie(laSortie);
+        participantManager.saveParticipant(participant);
         return "redirect:/sorties/"+laSortie.getSortieId()+"/details";
     }
 
@@ -158,43 +150,67 @@ public class SortieController {
     }
 
     @RequestMapping("deleteParticipant")
-    public String deleteParticipant(@RequestParam("participantId") Integer participantId){
-
+    public String deleteParticipant(@RequestParam("participantId") Integer participantId,HttpServletRequest request, HttpSession session){
+        Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
+        this.checkUserParticipant(loggedUser,participantId);
         participantManager.deleteParticipant(participantId);
         return "redirect:/sorties/userSorties";
     }
 
     @RequestMapping("confirmParticipant")
-    public String confirmParticipant(@RequestParam("participantId") Integer participantId){
+    public String confirmParticipant(@RequestParam("participantId") Integer participantId,HttpServletRequest request, HttpSession session){
+        Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
         Participant leParticipant=participantManager.findById(participantId);
         leParticipant.setStatut("Confirme");
+        this.checkUserParticipant(loggedUser,participantId);
         participantManager.saveParticipant(leParticipant);
         return "redirect:/sorties/userSorties";
     }
 
     @RequestMapping("annuleSortie")
-    public String annuleSortie(@RequestParam("sortieId") Integer sortieId){
+    public String annuleSortie(@RequestParam("sortieId") Integer sortieId,HttpServletRequest request, HttpSession session){
+        Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
         Sortie laSortie=sortieManager.findById(sortieId);
         laSortie.setStatut("Annule");
+        this.checkUserOrganisateur(loggedUser,session,sortieId);
         sortieManager.saveSortie(laSortie);
         return "redirect:/sorties/"+laSortie.getSortieId()+"/details";
 
     }
 
     @RequestMapping("confirmSortie")
-    public String confirmSortie(@RequestParam("sortieId") Integer sortieId){
+    public String confirmSortie(@RequestParam("sortieId") Integer sortieId,HttpServletRequest request, HttpSession session){
+        Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
         Sortie laSortie=sortieManager.findById(sortieId);
         laSortie.setStatut("Confirme");
+        this.checkUserOrganisateur(loggedUser,session,sortieId);
         sortieManager.saveSortie(laSortie);
         return "redirect:/sorties/"+laSortie.getSortieId()+"/details";
     }
 
     @RequestMapping("termineSortie")
-    public String termineSortie(@RequestParam("sortieId") Integer sortieId){
+    public String termineSortie(@RequestParam("sortieId") Integer sortieId,HttpServletRequest request, HttpSession session){
+        Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
         Sortie laSortie=sortieManager.findById(sortieId);
         laSortie.setStatut("Termine");
+        this.checkUserOrganisateur(loggedUser,session,sortieId);
         sortieManager.saveSortie(laSortie);
         return "redirect:/sorties/"+laSortie.getSortieId()+"/details";
+    }
+
+    public void checkUserParticipant(Utilisateur loggedUser, Integer participantId){
+        Utilisateur participantUser=participantManager.findById(participantId).getUtilisateur();
+        if(!loggedUser.getIdentifiant().equals(participantUser.getIdentifiant())){
+            throw new FunctionalException("non autorisé");
+        }
+    }
+
+    public void checkUserOrganisateur(Utilisateur loggedUser, HttpSession session, Integer sortieId){
+        Utilisateur organisateurUser=sortieManager.findById(sortieId).getOrganisateur();
+        if(!loggedUser.getIdentifiant().equals(organisateurUser.getIdentifiant())){
+            throw new FunctionalException("non autorisé");
+        }
+
     }
 
 }

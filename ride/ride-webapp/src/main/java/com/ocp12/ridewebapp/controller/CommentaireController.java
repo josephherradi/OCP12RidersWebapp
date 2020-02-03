@@ -3,6 +3,7 @@ package com.ocp12.ridewebapp.controller;
 import com.ocp12.ridebusiness.CommentaireManager;
 import com.ocp12.ridebusiness.ParticipantManager;
 import com.ocp12.ridebusiness.SortieManager;
+import com.ocp12.ridebusiness.exceptions.FunctionalException;
 import com.ocp12.ridemodele.Commentaire;
 import com.ocp12.ridemodele.Participant;
 import com.ocp12.ridemodele.Sortie;
@@ -57,5 +58,7 @@ public class CommentaireController {
         commentaireManager.saveCommentaire(lecommentaire);
         return "redirect:/sorties/{sortieId}/commentsList";
     }
+
+
 
 }

@@ -13,5 +13,6 @@ public interface ParticipantManager {
     public void deleteParticipant(Integer participantId);
     public Participant findById(Integer participantId);
     public Participant findByUtilisateurAndSortie(Utilisateur utilisateur, Sortie sortie);
+    public List<Participant> findBySortieId(Integer sortieId);
 
 }
