@@ -3,6 +3,7 @@ package com.ocp12.ridewebapp.controller;
 import com.ocp12.ridebusiness.CommentaireManager;
 import com.ocp12.ridebusiness.ParticipantManager;
 import com.ocp12.ridebusiness.SortieManager;
+import com.ocp12.ridebusiness.businessRules.Brules;
 import com.ocp12.ridebusiness.exceptions.FunctionalException;
 import com.ocp12.ridemodele.Commentaire;
 import com.ocp12.ridemodele.Participant;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @Controller
@@ -33,13 +35,10 @@ public class CommentaireController {
     @Autowired
     private CommentaireManager commentaireManager;
 
+    @Autowired
+    private Brules brules;
 
-    @RequestMapping(value = "{sortieId}/commentsList")
-    public String sortieCommentsList(@PathVariable("sortieId") Integer sortieId,Model model){
-        List<Commentaire> commentaireList=commentaireManager.sortieCommentairesList(sortieId);
-        model.addAttribute("commentaireList",commentaireList);
-    return "commentaires-list";
-    }
+
 
     @RequestMapping(value = "{sortieId}/showCommentForm",method = RequestMethod.GET)
     public String showformComment (Model model, @PathVariable("sortieId") Integer sortieId){
@@ -55,6 +54,8 @@ public class CommentaireController {
         Participant participant=participantManager.findByUtilisateurAndSortie(loggedUser,sortie);
         lecommentaire.setParticipant(participant);
         lecommentaire.setDate(new Date());
+        brules.checkUserComment(loggedUser,sortieId);
+        brules.checkSortieStatut(sortieId);
         commentaireManager.saveCommentaire(lecommentaire);
         return "redirect:/sorties/{sortieId}/commentsList";
     }

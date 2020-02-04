@@ -1,5 +1,6 @@
 package com.ocp12.ridebusiness;
 
+import com.ocp12.ridebusiness.businessRules.Brules;
 import com.ocp12.rideconsumer.dao.EtapeDao;
 import com.ocp12.rideconsumer.dao.SortieDao;
 import com.ocp12.ridemodele.Etape;
@@ -16,6 +17,7 @@ public class EtapeManagerImpl implements EtapeManager {
 
     @Autowired
     private SortieDao sortieDao;
+
 
     @Override
     public void saveEtape(Etape letape,Integer sortieId) {

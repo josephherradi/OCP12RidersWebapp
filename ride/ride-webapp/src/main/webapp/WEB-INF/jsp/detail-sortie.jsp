@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,28 +75,18 @@
 
              <br>
              <br>
-<div class="row">
-<div class="col-sm-4">
 <div>
         				<a href="${pageContext.request.contextPath}/etapes/etapesList?sortieId=${laSortie.sortieId}"
         					class="button medium hpbottom">Liste des étapes</a>
         			</div>
 
-</div>
-<div class="col-sm-4">
+<br>
+<br>
 <div >
                         				<a href="${pageContext.request.contextPath}/sorties/${laSortie.sortieId}/showPictures"
                         					class="button medium hpbottom">Voir les photos</a>
 
-</div>
 
-</div>
-<div class="col-sm-4">
-<div>
-                        				<a href="${pageContext.request.contextPath}/sorties/${laSortie.sortieId}/commentsList"
-                        					class="button medium hpbottom">Commentaires</a>
-
-</div>
 </div>
 <br>
 <br>
@@ -110,7 +101,7 @@
 				</tr>
 				<tr>
 				    <th>date</th>
-					<td>${laSortie.date}</td>
+					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${laSortie.date}"/></td>
 				</tr>
 				<tr>
     				<th>nom</th>
@@ -171,6 +162,9 @@
 
          <br>
          <br>
+         <p>
+         <h4>Liste des participants </h4>
+         </p>
                    <table class="table table-striped table-bordered">
                     <tr>
                                     <th>Participants</th>
@@ -188,6 +182,30 @@
                   </c:forEach>
                  </table>
                  <br>
+        <p>
+         <h4>Commentaires des participants </h4>
+         </p>
+                 <table class="table table-striped table-bordered">
+                 				<tr>
+                 				    <th>date</th>
+                 					<th>participant</th>
+                 					<th>message</th>
+
+
+
+                 				</tr>
+
+                 				<c:forEach var="tempCommentaire" items="${commentaireList}">
+
+
+                 					<tr>
+                 						<td><fmt:formatDate pattern="yyyy-MM-dd" value="${tempCommentaire.date}" /></td>
+                 						<td>${tempCommentaire.participant.utilisateur.identifiant}</td>
+                 						<td>${tempCommentaire.message}</td>
+
+                 					</tr>
+                 				</c:forEach>
+                 			</table>
               	</div>
               	</div>
 

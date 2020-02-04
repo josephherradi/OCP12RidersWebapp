@@ -58,7 +58,7 @@
 
 				</tr>
 
-				<c:forEach var="tempSorties" items="${sortiesList}">
+				<c:forEach var="tempSorties" items="${empty sortiesFound ? sortiesList : sortiesFound}">
 
 					<c:url var="detailsLink"
 						value="/sorties/${tempSorties.sortieId}/details">

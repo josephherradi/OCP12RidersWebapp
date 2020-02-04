@@ -2,8 +2,10 @@ package com.ocp12.ridewebapp.controller;
 
 import com.ocp12.ridebusiness.EtapeManager;
 import com.ocp12.ridebusiness.SortieManager;
+import com.ocp12.ridebusiness.businessRules.Brules;
 import com.ocp12.ridemodele.Etape;
 import com.ocp12.ridemodele.Sortie;
+import com.ocp12.ridemodele.Utilisateur;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -25,6 +29,9 @@ public class EtapeController {
 
     @Autowired
     private EtapeManager etapeManager;
+
+    @Autowired
+    private Brules brules;
 
 
 
@@ -45,7 +52,9 @@ public class EtapeController {
 }
 
 @RequestMapping("saveEtape")
-    public String saveEtape(@ModelAttribute Etape letape, @RequestParam("sortieId") Integer sortieId){
+    public String saveEtape(@ModelAttribute Etape letape, @RequestParam("sortieId") Integer sortieId, HttpServletRequest request, HttpSession session){
+    Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
+    brules.checkUserOrganisateur(loggedUser,session,sortieId);
     etapeManager.saveEtape(letape,sortieId);
     return "redirect:/etapes/etapesList?sortieId="+sortieId;
 }

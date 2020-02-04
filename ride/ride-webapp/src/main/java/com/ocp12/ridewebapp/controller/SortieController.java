@@ -1,17 +1,12 @@
 package com.ocp12.ridewebapp.controller;
 
-import com.ocp12.ridebusiness.EtapeImport;
-import com.ocp12.ridebusiness.EtapeManager;
-import com.ocp12.ridebusiness.ParticipantManager;
-import com.ocp12.ridebusiness.SortieManager;
+import com.ocp12.ridebusiness.*;
+import com.ocp12.ridebusiness.businessRules.Brules;
 import com.ocp12.ridebusiness.exceptions.FunctionalException;
 import com.ocp12.rideconsumer.dto.SortieKmlDto;
 import com.ocp12.rideconsumer.kmlparser.CoordinatesBean;
 import com.ocp12.rideconsumer.kmlparser.KmlParser;
-import com.ocp12.ridemodele.Etape;
-import com.ocp12.ridemodele.Participant;
-import com.ocp12.ridemodele.Sortie;
-import com.ocp12.ridemodele.Utilisateur;
+import com.ocp12.ridemodele.*;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -49,6 +44,12 @@ public class SortieController {
 
     @Autowired
     private EtapeImport etapeImport;
+
+    @Autowired
+    private Brules brules;
+
+    @Autowired
+    private CommentaireManager commentaireManager;
 
     @RequestMapping(value = "/liste",method = RequestMethod.GET)
     public String listeSorties(Model theModel){
@@ -88,6 +89,13 @@ public class SortieController {
             e.printStackTrace();
         }
 
+        Participant participant=new Participant();
+        participant.setStatut("en attente");
+        participant.setSortie(laSortie);
+        participant.setUtilisateur(loggedUser);
+        participantManager.saveParticipant(participant);
+
+
         return "redirect:/sorties/liste";
     }
 
@@ -102,6 +110,8 @@ public class SortieController {
     @RequestMapping(value = "{sortieId}/details")
     public String sortieDetails(@PathVariable("sortieId") Integer sortieId,Model model){
     Sortie laSortie= sortieManager.findById(sortieId);
+    List<Commentaire> commentaireList=commentaireManager.sortieCommentairesList(sortieId);
+    model.addAttribute("commentaireList",commentaireList);
     model.addAttribute("laSortie",laSortie);
 
 
@@ -129,6 +139,7 @@ public class SortieController {
         participant.setStatut("en attente");
         participant.setSortie(laSortie);
         participant.setUtilisateur(loggedUser);
+        brules.checkSortieStatut(laSortie.getSortieId());
         participantManager.saveParticipant(participant);
         return "redirect:/sorties/"+laSortie.getSortieId()+"/details";
     }
@@ -152,7 +163,8 @@ public class SortieController {
     @RequestMapping("deleteParticipant")
     public String deleteParticipant(@RequestParam("participantId") Integer participantId,HttpServletRequest request, HttpSession session){
         Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
-        this.checkUserParticipant(loggedUser,participantId);
+        brules.checkUserParticipant(loggedUser,participantId);
+        brules.checkSortieStatut(participantManager.findById(participantId).getSortie().getSortieId());
         participantManager.deleteParticipant(participantId);
         return "redirect:/sorties/userSorties";
     }
@@ -162,7 +174,7 @@ public class SortieController {
         Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
         Participant leParticipant=participantManager.findById(participantId);
         leParticipant.setStatut("Confirme");
-        this.checkUserParticipant(loggedUser,participantId);
+        brules.checkUserParticipant(loggedUser,participantId);
         participantManager.saveParticipant(leParticipant);
         return "redirect:/sorties/userSorties";
     }
@@ -172,7 +184,7 @@ public class SortieController {
         Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
         Sortie laSortie=sortieManager.findById(sortieId);
         laSortie.setStatut("Annule");
-        this.checkUserOrganisateur(loggedUser,session,sortieId);
+        brules.checkUserOrganisateur(loggedUser,session,sortieId);
         sortieManager.saveSortie(laSortie);
         return "redirect:/sorties/"+laSortie.getSortieId()+"/details";
 
@@ -183,7 +195,7 @@ public class SortieController {
         Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
         Sortie laSortie=sortieManager.findById(sortieId);
         laSortie.setStatut("Confirme");
-        this.checkUserOrganisateur(loggedUser,session,sortieId);
+        brules.checkUserOrganisateur(loggedUser,session,sortieId);
         sortieManager.saveSortie(laSortie);
         return "redirect:/sorties/"+laSortie.getSortieId()+"/details";
     }
@@ -193,23 +205,16 @@ public class SortieController {
         Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
         Sortie laSortie=sortieManager.findById(sortieId);
         laSortie.setStatut("Termine");
-        this.checkUserOrganisateur(loggedUser,session,sortieId);
+        brules.checkUserOrganisateur(loggedUser,session,sortieId);
         sortieManager.saveSortie(laSortie);
         return "redirect:/sorties/"+laSortie.getSortieId()+"/details";
     }
 
-    public void checkUserParticipant(Utilisateur loggedUser, Integer participantId){
-        Utilisateur participantUser=participantManager.findById(participantId).getUtilisateur();
-        if(!loggedUser.getIdentifiant().equals(participantUser.getIdentifiant())){
-            throw new FunctionalException("non autorisé");
-        }
-    }
-
-    public void checkUserOrganisateur(Utilisateur loggedUser, HttpSession session, Integer sortieId){
-        Utilisateur organisateurUser=sortieManager.findById(sortieId).getOrganisateur();
-        if(!loggedUser.getIdentifiant().equals(organisateurUser.getIdentifiant())){
-            throw new FunctionalException("non autorisé");
-        }
+    @RequestMapping("searchByCriteria")
+    public String search(@RequestParam(value = "statut", required = false) String statut,@RequestParam(value = "horspiste", required = false) Boolean horspiste,@RequestParam(value = "niveau", required = false) String niveau, Model model){
+        List<Sortie> sortieList=sortieManager.searchSorties(statut,horspiste,niveau);
+        model.addAttribute("sortiesFound",sortieList);
+        return "liste-sorties";
 
     }
 
