@@ -60,4 +60,27 @@ public class Brules {
         }
 
     }
+
+    public void checkParticipantsNumber(Participant participant) throws FunctionalException {
+        Integer sortieId=participant.getSortie().getSortieId();
+        Integer participantsNumber=participantManager.findBySortieId(sortieId).size();
+        Integer limitNumberParticipants=sortieManager.findById(sortieId).getNbrParticipants();
+        if(participantsNumber>=limitNumberParticipants){
+            throw new FunctionalException("Nombre max de participants atteints :(");
+        }
+    }
+
+    public void checkAlreadJoinedSortie(Participant participant){
+        Participant participantFound=participantManager.findByUtilisateurAndSortie(participant.getUtilisateur(),participant.getSortie());
+        if(participantFound!=null){
+            throw new FunctionalException("Vous êtes déjà inscrit comme participant à la sortie");
+        }
+    }
+
+    public void checkStatutSortieBeforeJoinParticipant(Participant participant){
+        if(participant.getSortie().getStatut().equalsIgnoreCase("Termine") || participant.getSortie().getStatut().equalsIgnoreCase("Annule")){
+            throw new FunctionalException("Impossible de participer à une sortie terminée");
+        }
+
+    }
 }

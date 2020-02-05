@@ -157,7 +157,9 @@ public class SortieController {
         participant.setStatut("en attente");
         participant.setSortie(laSortie);
         participant.setUtilisateur(loggedUser);
-        brules.checkSortieStatut(laSortie.getSortieId());
+        brules.checkAlreadJoinedSortie(participant);
+        brules.checkStatutSortieBeforeJoinParticipant(participant);
+        brules.checkParticipantsNumber(participant);
         participantManager.saveParticipant(participant);
         return "redirect:/sorties/"+laSortie.getSortieId()+"/details";
     }
