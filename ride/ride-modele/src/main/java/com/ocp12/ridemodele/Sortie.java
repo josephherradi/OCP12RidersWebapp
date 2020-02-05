@@ -37,7 +37,7 @@ public class Sortie {
     private Boolean horspiste;
 
     @Column(name="duree")
-    private String duree;
+    private Integer duree;
 
     @Column(name = "distance")
     private Double distance;
@@ -112,11 +112,12 @@ public class Sortie {
         this.horspiste = horspiste;
     }
 
-    public String getDuree() {
+
+    public Integer getDuree() {
         return duree;
     }
 
-    public void setDuree(String duree) {
+    public void setDuree(Integer duree) {
         this.duree = duree;
     }
 
@@ -182,7 +183,7 @@ public class Sortie {
                 ", organisateur=" + organisateur +
                 ", niveau='" + niveau + '\'' +
                 ", horspiste=" + horspiste +
-                ", duree='" + duree + '\'' +
+                ", duree=" + duree +
                 ", distance=" + distance +
                 ", nbrEtapes=" + nbrEtapes +
                 ", filename='" + filename + '\'' +

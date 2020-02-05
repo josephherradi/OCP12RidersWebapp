@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +45,52 @@
                                              				<a href="${pageContext.request.contextPath}/sorties/organisateurSorties"
                                              					class="button medium hpbottom">Sorties que j'organise</a>
                                              			</div>
-                         <br>
+    <br>
+	<h3>Recherche par critère</h3>
+			<br>
+
+			<form:form
+				action="searchByCriteria"
+				cssClass="form-horizontal" method="get">
+				<br>
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-6">
+						<label for="horspiste"></label>
+						<select class="form-control"
+							name="horspiste">
+							<option value="" selected disabled>Hors piste?</option>
+							<option value="TRUE">VRAI</option>
+							<option value="FALSE">FAUX</option>
+						</select>
+
+						<label for="statut"></label>
+						<select class="form-control"
+							name="statut">
+							<option value="" selected disabled>statut</option>
+							<option value="Confirme">Confirmé</option>
+							<option value="en attente">En attente</option>
+							<option value="Termine">Terminé</option>
+							<option value="Annule">Annulé</option>
+                        </select>
+
+                        <label for="niveau"></label>
+                        <select class="form-control"
+							name="niveau">
+							<option value="" selected disabled>niveau</option>
+							<option value="debutant">débutant</option>
+							<option value="confirme">Confirmé</option>
+							<option value="expert">Expert</option>
+                        </select>
+                        <br>
+						<input name="duree" class="form-control" placeholder="nombre max de jours" />
+						<br>
+						<button type="submit" class="btn btn-default btn-sm">Chercher</button>
+					</div>
+				</div>
+
+
+			</form:form>
+            <br>
 			<h2>Liste des sorties</h2>
 
 			<table class="table table-striped table-bordered">
@@ -71,7 +118,7 @@
 						<td><fmt:formatDate pattern="yyyy-MM-dd" value="${tempSorties.date}"/></td>
 						<td>${tempSorties.nom}</td>
 						<td>${tempSorties.description}</td>
-						<td>${tempSorties.duree}</td>
+						<td>${tempSorties.duree} jours</td>
 						<td>${tempSorties.statut}</td>
 
 

@@ -24,7 +24,7 @@ public class SortieKmlDto {
 
     private Boolean horspiste;
 
-    private String duree;
+    private Integer duree;
 
     private Double distance;
 
@@ -96,11 +96,11 @@ public class SortieKmlDto {
         this.horspiste = horspiste;
     }
 
-    public String getDuree() {
+    public Integer getDuree() {
         return duree;
     }
 
-    public void setDuree(String duree) {
+    public void setDuree(Integer duree) {
         this.duree = duree;
     }
 

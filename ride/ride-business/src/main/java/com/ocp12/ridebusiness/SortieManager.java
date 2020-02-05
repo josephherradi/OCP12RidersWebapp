@@ -14,5 +14,5 @@ public interface SortieManager {
     public  Sortie findById(Integer sortieId);
     public Sortie findByFilename(String kmlname);
     public List<Sortie> organisateurSorties(Utilisateur organisateur);
-    public List<Sortie> searchSorties(String statut,Boolean horspiste,String niveau);
+    public List<Sortie> searchSorties(Integer duree,String statut,Boolean horspiste,String niveau);
 }

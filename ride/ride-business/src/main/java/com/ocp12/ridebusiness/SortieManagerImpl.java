@@ -48,9 +48,12 @@ public class SortieManagerImpl implements SortieManager {
     }
 
     @Override
-    public List<Sortie> searchSorties(String statut, Boolean horspiste, String niveau) {
+    public List<Sortie> searchSorties(Integer duree,String statut, Boolean horspiste, String niveau) {
         String queryDyn = "select s from Sortie s where 1=1";
 
+        if (!StringUtils.isEmpty(duree)) {
+            queryDyn = queryDyn + " and s.duree<= :duree";
+        }
         if (!StringUtils.isEmpty(statut)) {
             queryDyn = queryDyn + " and s.statut= :statut";
         }
@@ -62,6 +65,9 @@ public class SortieManagerImpl implements SortieManager {
         }
 
         Query<Sortie> query= (Query<Sortie>) entityManager.createQuery(queryDyn,Sortie.class);
+        if (!StringUtils.isEmpty(duree)) {
+            query.setParameter("duree",duree);
+        }
 
         if (!StringUtils.isEmpty(statut)) {
             query.setParameter("statut",statut);

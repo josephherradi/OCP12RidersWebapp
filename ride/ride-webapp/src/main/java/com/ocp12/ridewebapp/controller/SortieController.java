@@ -211,11 +211,14 @@ public class SortieController {
     }
 
     @RequestMapping("searchByCriteria")
-    public String search(@RequestParam(value = "statut", required = false) String statut,@RequestParam(value = "horspiste", required = false) Boolean horspiste,@RequestParam(value = "niveau", required = false) String niveau, Model model){
-        List<Sortie> sortieList=sortieManager.searchSorties(statut,horspiste,niveau);
+    public String search(@RequestParam(value = "statut", required = false) String statut,@RequestParam(value = "horspiste", required = false) Boolean horspiste,
+                         @RequestParam(value = "niveau", required = false) String niveau,
+                         @RequestParam(value = "duree", required = false) Integer duree,Model model){
+        List<Sortie> sortieList=sortieManager.searchSorties(duree,statut,horspiste,niveau);
         model.addAttribute("sortiesFound",sortieList);
         return "liste-sorties";
 
     }
 
 }
+
