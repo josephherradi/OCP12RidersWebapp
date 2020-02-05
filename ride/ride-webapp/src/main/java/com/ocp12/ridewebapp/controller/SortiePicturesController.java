@@ -3,6 +3,7 @@ package com.ocp12.ridewebapp.controller;
 import com.ocp12.ridebusiness.PicNameSortieManager;
 import com.ocp12.ridebusiness.SortieManager;
 import com.ocp12.ridebusiness.businessRules.Brules;
+import com.ocp12.ridebusiness.exceptions.ExtensionException;
 import com.ocp12.ridemodele.Participant;
 import com.ocp12.ridemodele.Picnamessortie;
 import com.ocp12.ridemodele.Utilisateur;
@@ -64,6 +65,7 @@ public class SortiePicturesController {
         public String uploadingPost(@ModelAttribute Picnamessortie picnamessortieId, @RequestParam("uploadingFiles") MultipartFile[] uploadingFiles, HttpServletRequest request, HttpSession session) throws IOException, MessagingException {
             Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
             for(MultipartFile uploadedFile : uploadingFiles) {
+                if(uploadedFile.getOriginalFilename().contains(".jpg")||uploadedFile.getOriginalFilename().contains(".jpeg")||uploadedFile.getOriginalFilename().contains(".png")){
                 byte[] bytes = uploadedFile.getBytes();
                 Path path = Paths.get("upload-dir/pics/" + uploadedFile.getOriginalFilename());
                 Files.write(path, bytes);
@@ -73,7 +75,8 @@ public class SortiePicturesController {
                 brules.checkUserOrganisateur(loggedUser,session,picnamessortieId.getSortieId());
                 brules.checkSortieStatut(picnamessortieId.getSortieId());
                 picNameSortieManager.savePicNameSortie(picNamesSortie);
-                this.participantsPicsNotifier(picnamessortieId.getSortieId());
+                this.participantsPicsNotifier(picnamessortieId.getSortieId());}
+                else throw new ExtensionException("Merci d'uploader uniquement des photos jpeg, jpg et png");
 
             }
 

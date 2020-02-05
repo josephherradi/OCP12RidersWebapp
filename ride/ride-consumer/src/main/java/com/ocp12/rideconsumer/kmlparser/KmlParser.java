@@ -2,7 +2,6 @@ package com.ocp12.rideconsumer.kmlparser;
 
 
 import de.micromata.opengis.kml.v_2_2_0.*;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,43 +14,44 @@ import java.util.List;
  public class KmlParser {
 
 
+     public static List<CoordinatesBean> runParser(String folder) throws FileNotFoundException {
+         List<CoordinatesBean> coordinatesBeanList = new ArrayList<>();
+         File file = new File(folder);
+         InputStream inputStream = new FileInputStream(file);
+         Kml kml = Kml.unmarshal(inputStream);
+         Feature feature = kml.getFeature();
+         coordinatesBeanList = parseFeature(feature);
+         return coordinatesBeanList;
 
-    public static List<CoordinatesBean> runParser(String folder) throws FileNotFoundException {
-        List<CoordinatesBean> coordinatesBeanList=new ArrayList<>();
-        File file = new File(folder);
-        InputStream inputStream = new FileInputStream(file);
-        Kml kml = Kml.unmarshal(inputStream);
-        Feature feature = kml.getFeature();
-        coordinatesBeanList=parseFeature(feature);
-        return coordinatesBeanList;
+     }
 
-    }
+     private static List<CoordinatesBean> parseFeature(Feature feature) {
+         List<CoordinatesBean> coordinatesBeanList=new ArrayList<>();
+         try {
+             if (feature != null) {
+                 Document document = (Document) feature;
+                 List<Feature> featureList = document.getFeature();
+                 for (Feature documentFeature : featureList) {
+                     Folder folder = (Folder) documentFeature;
+                     List<Feature> folderfeaturList = folder.getFeature();
+                     for (Feature folderfeature : folderfeaturList) {
+                         if (folderfeature instanceof Placemark) {
+                             Placemark placemark = (Placemark) folderfeature;
+                             Geometry geometry = placemark.getGeometry();
+                             CoordinatesBean coordinatesBean = parseGeometry(geometry, placemark);
+                             coordinatesBeanList.add(coordinatesBean);
 
-    private static List<CoordinatesBean> parseFeature(Feature feature) {
-        List<CoordinatesBean> coordinatesBeanList=new ArrayList<>();
-       try {
-           if (feature != null) {
-               Document document = (Document) feature;
-               List<Feature> featureList = document.getFeature();
-               for (Feature documentFeature : featureList) {
-                   Folder folder = (Folder) documentFeature;
-                   List<Feature> folderfeaturList = folder.getFeature();
-                   for (Feature folderfeature : folderfeaturList) {
-                       if (folderfeature instanceof Placemark) {
-                           Placemark placemark = (Placemark) folderfeature;
-                           Geometry geometry = placemark.getGeometry();
-                           CoordinatesBean coordinatesBean = parseGeometry(geometry, placemark);
-                           coordinatesBeanList.add(coordinatesBean);
+                         }
+                     }
+                 }
+             }
+         }catch (java.lang.ClassCastException e){
+             System.out.println("pas de placemark");
+         }
+         return coordinatesBeanList;
+     }
 
-                       }
-                   }
-               }
-           }
-       }catch (java.lang.ClassCastException e){
-           System.out.println("pas de placemark");
-       }
-        return coordinatesBeanList;
-    }
+
 
 
     private static CoordinatesBean parseGeometry(Geometry geometry, Placemark placemark) {

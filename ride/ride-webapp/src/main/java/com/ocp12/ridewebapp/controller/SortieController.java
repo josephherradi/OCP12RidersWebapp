@@ -2,6 +2,7 @@ package com.ocp12.ridewebapp.controller;
 
 import com.ocp12.ridebusiness.*;
 import com.ocp12.ridebusiness.businessRules.Brules;
+import com.ocp12.ridebusiness.exceptions.ExtensionException;
 import com.ocp12.ridebusiness.exceptions.FunctionalException;
 import com.ocp12.rideconsumer.dto.SortieKmlDto;
 import com.ocp12.rideconsumer.kmlparser.CoordinatesBean;
@@ -85,21 +86,26 @@ public class SortieController {
         laSortie.setNom(sortieKmlDto.getNom());
         laSortie.setNbrParticipants(sortieKmlDto.getNbrParticipants());
         laSortie.setStatut("en attente");
-        sortieManager.saveSortie(laSortie);
         MultipartFile file= sortieKmlDto.getFile();
-        try {
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOAD_FOLDER + file.getOriginalFilename());
-            laSortie.setFilename(file.getOriginalFilename());
-            Files.write(path, bytes);
-            String folder= UPLOAD_FOLDER + file.getOriginalFilename();
-            Integer N=etapeImport.processor(folder,laSortie);
-            laSortie.setNbrEtapes(N);
-            sortieManager.saveSortie(laSortie);
+        if(file.getOriginalFilename().contains(".kml")) {
+            try {
+                sortieManager.saveSortie(laSortie);
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(UPLOAD_FOLDER + file.getOriginalFilename());
+                laSortie.setFilename(file.getOriginalFilename());
+                Files.write(path, bytes);
+                String folder = UPLOAD_FOLDER + file.getOriginalFilename();
+                Integer N = etapeImport.processor(folder, laSortie);
+                if (N>0){
+                laSortie.setNbrEtapes(N);}
+                else laSortie.setNbrEtapes(0);
+                sortieManager.saveSortie(laSortie);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else throw new ExtensionException("Uniquement les fichiers KML sont acceptés");
+
 
         Participant participant=new Participant();
         participant.setStatut("en attente");
