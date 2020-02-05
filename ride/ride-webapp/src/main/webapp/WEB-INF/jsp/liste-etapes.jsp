@@ -15,10 +15,9 @@
 		<div class="col-md-offset-1 col-md-10">
         <br>
         <br>
-        <div style="text-align: left">
-        				<a href="${pageContext.request.contextPath}/sorties/${listetapes[0].sortie.sortieId}/details"
-        					class="button medium hpbottom">Liste des étapes</a>
-         <br>
+        				<button type="button" name="back" onclick="history.back()">back</button>
+
+        <br>
          <br>
 			<h2>Liste des étapes</h2>
 			<br>
@@ -26,7 +25,7 @@
 			<table class="table table-striped table-bordered">
 				<tr>
 				    <th>nom</th>
-					<th>distance (km à vol d'oiseau)</th>
+					<th>km à vol d'oiseau</th>
 					<th>commentaire</th>
 
 
@@ -40,7 +39,7 @@
 
 					<tr>
 						<td>${tempEtape.nom}</td>
-						<td>${tempEtape.distance}</td>
+						<td><fmt:formatNumber type="number" maxFractionDigits="0" value="${tempEtape.distance}" /></td>
 						<td>${tempEtape.description}</td>
 
 						<td><a href="${commentLink}">Commenter</a></td>

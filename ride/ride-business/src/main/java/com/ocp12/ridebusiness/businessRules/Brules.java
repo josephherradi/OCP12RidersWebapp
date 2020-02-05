@@ -39,10 +39,11 @@ public class Brules {
         Sortie sortie=sortieManager.findById(sortieId);
         String statut=sortie.getStatut();
 
-        if(statut.equalsIgnoreCase("Termine")){
+        if(!statut.equalsIgnoreCase("Termine")){
             throw new FunctionalException("Action possible quand le statut de la sortie est termine");
         }
     }
+
 
 
     public void checkUserParticipant(Utilisateur loggedUser, Integer participantId){

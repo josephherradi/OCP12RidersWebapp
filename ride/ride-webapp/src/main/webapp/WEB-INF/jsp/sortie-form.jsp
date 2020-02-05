@@ -61,7 +61,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="duree" class="col-md-3 control-label">durée</label>
+						<label for="duree" class="col-md-3 control-label">durée (jours)</label>
 						<div class="col-md-9">
 							<form:input path="duree" cssClass="form-control" />
 						</div>

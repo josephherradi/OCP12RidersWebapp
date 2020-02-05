@@ -199,7 +199,8 @@
 
 
                  					<tr>
-                 						<td><fmt:formatDate pattern="yyyy-MM-dd" value="${tempCommentaire.date}" /></td>
+                 						<td><fmt:formatDate type = "both"
+                                                                     dateStyle = "short" timeStyle = "short" value="${tempCommentaire.date}" /></td>
                  						<td>${tempCommentaire.participant.utilisateur.identifiant}</td>
                  						<td>${tempCommentaire.message}</td>
 

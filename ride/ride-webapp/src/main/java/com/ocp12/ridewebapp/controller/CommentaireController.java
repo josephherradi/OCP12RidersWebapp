@@ -57,7 +57,7 @@ public class CommentaireController {
         brules.checkUserComment(loggedUser,sortieId);
         brules.checkSortieStatut(sortieId);
         commentaireManager.saveCommentaire(lecommentaire);
-        return "redirect:/sorties/{sortieId}/commentsList";
+        return "redirect:/sorties/{sortieId}/details";
     }
 
 
