@@ -187,8 +187,7 @@ public class Sortie {
                 ", distance=" + distance +
                 ", nbrEtapes=" + nbrEtapes +
                 ", filename='" + filename + '\'' +
-                ", statut='" + statut + '\'' +
-                ", participants=" + participants +
+                ", statut='" + statut +
                 '}';
     }
 }

@@ -9,7 +9,10 @@ import com.ocp12.rideconsumer.kmlparser.KmlParser;
 import com.ocp12.ridemodele.*;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -17,6 +20,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.*;
@@ -50,6 +55,13 @@ public class SortieController {
 
     @Autowired
     private CommentaireManager commentaireManager;
+
+    @Autowired
+    private JavaMailSender mailSender;
+
+    @Value("${spring.mail.username}")
+    private String sender;
+    private String attachment;
 
     @RequestMapping(value = "/liste",method = RequestMethod.GET)
     public String listeSorties(Model theModel){
@@ -180,33 +192,39 @@ public class SortieController {
     }
 
     @RequestMapping("annuleSortie")
-    public String annuleSortie(@RequestParam("sortieId") Integer sortieId,HttpServletRequest request, HttpSession session){
+    public String annuleSortie(@RequestParam("sortieId") Integer sortieId,HttpServletRequest request, HttpSession session) throws MessagingException {
         Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
         Sortie laSortie=sortieManager.findById(sortieId);
         laSortie.setStatut("Annule");
         brules.checkUserOrganisateur(loggedUser,session,sortieId);
         sortieManager.saveSortie(laSortie);
+        List<Participant> participantList=laSortie.getParticipants();
+        this.participantsMailSender(participantList);
         return "redirect:/sorties/"+laSortie.getSortieId()+"/details";
 
     }
 
     @RequestMapping("confirmSortie")
-    public String confirmSortie(@RequestParam("sortieId") Integer sortieId,HttpServletRequest request, HttpSession session){
+    public String confirmSortie(@RequestParam("sortieId") Integer sortieId,HttpServletRequest request, HttpSession session) throws MessagingException {
         Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
         Sortie laSortie=sortieManager.findById(sortieId);
         laSortie.setStatut("Confirme");
         brules.checkUserOrganisateur(loggedUser,session,sortieId);
         sortieManager.saveSortie(laSortie);
+        List<Participant> participantList=laSortie.getParticipants();
+        this.participantsMailSender(participantList);
         return "redirect:/sorties/"+laSortie.getSortieId()+"/details";
     }
 
     @RequestMapping("termineSortie")
-    public String termineSortie(@RequestParam("sortieId") Integer sortieId,HttpServletRequest request, HttpSession session){
+    public String termineSortie(@RequestParam("sortieId") Integer sortieId,HttpServletRequest request, HttpSession session) throws MessagingException {
         Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
         Sortie laSortie=sortieManager.findById(sortieId);
         laSortie.setStatut("Termine");
         brules.checkUserOrganisateur(loggedUser,session,sortieId);
         sortieManager.saveSortie(laSortie);
+        List<Participant> participantList=laSortie.getParticipants();
+        this.participantsMailSender(participantList);
         return "redirect:/sorties/"+laSortie.getSortieId()+"/details";
     }
 
@@ -220,5 +238,25 @@ public class SortieController {
 
     }
 
+    public void participantsMailSender(List<Participant> participants) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        ListIterator<Participant> participantListIterator=participants.listIterator();
+        while (participantListIterator.hasNext()) {
+            Participant participant=participantListIterator.next();
+            helper.setFrom(sender);
+            helper.setTo(participant.getUtilisateur().getMail());
+            helper.setSubject("La sortie " + participant.getSortie().getNom()+" du "+participant.getSortie().getDate());
+
+            if(participant.getSortie().getStatut().equalsIgnoreCase("Termine")){
+                helper.setText("Bonjour "+participant.getUtilisateur().getIdentifiant()+","+ "la sortie "+ participant.getSortie().getNom()+ " organisée par " +participant.getSortie().getOrganisateur().getIdentifiant()+ " est au statut "+participant.getSortie().getStatut()+". Vous pouvez poster des commentaires sur la sortie réalisée."  +  "Cordialement");
+
+            }else
+                helper.setText("Bonjour "+participant.getUtilisateur().getIdentifiant()+","+ "la sortie "+ participant.getSortie().getNom()+ " organisée par " +participant.getSortie().getOrganisateur().getIdentifiant()+ " est au statut "+participant.getSortie().getStatut()+"."  +  "Cordialement");
+
+
+            mailSender.send(message);
+        }
+    }
 }
 

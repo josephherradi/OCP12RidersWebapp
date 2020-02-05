@@ -1,17 +1,24 @@
 package com.ocp12.ridewebapp.controller;
 
 import com.ocp12.ridebusiness.PicNameSortieManager;
+import com.ocp12.ridebusiness.SortieManager;
 import com.ocp12.ridebusiness.businessRules.Brules;
+import com.ocp12.ridemodele.Participant;
 import com.ocp12.ridemodele.Picnamessortie;
 import com.ocp12.ridemodele.Utilisateur;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.FileInputStream;
@@ -22,6 +29,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 @RequestMapping("sorties")
 @Controller
@@ -31,6 +39,16 @@ public class SortiePicturesController {
 
         @Autowired
         private Brules brules;
+
+        @Autowired
+        private JavaMailSender mailSender;
+
+        @Autowired
+        private SortieManager sortieManager;
+
+        @Value("${spring.mail.username}")
+        private String sender;
+        private String attachment;
 
         public static final String uploadingDir = "/upload-dir/pics/";
 
@@ -43,7 +61,7 @@ public class SortiePicturesController {
         }
 
         @RequestMapping(value = "savepictures", method = RequestMethod.POST)
-        public String uploadingPost(@ModelAttribute Picnamessortie picnamessortieId, @RequestParam("uploadingFiles") MultipartFile[] uploadingFiles, HttpServletRequest request, HttpSession session) throws IOException {
+        public String uploadingPost(@ModelAttribute Picnamessortie picnamessortieId, @RequestParam("uploadingFiles") MultipartFile[] uploadingFiles, HttpServletRequest request, HttpSession session) throws IOException, MessagingException {
             Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
             for(MultipartFile uploadedFile : uploadingFiles) {
                 byte[] bytes = uploadedFile.getBytes();
@@ -55,6 +73,7 @@ public class SortiePicturesController {
                 brules.checkUserOrganisateur(loggedUser,session,picnamessortieId.getSortieId());
                 brules.checkSortieStatut(picnamessortieId.getSortieId());
                 picNameSortieManager.savePicNameSortie(picNamesSortie);
+                this.participantsPicsNotifier(picnamessortieId.getSortieId());
 
             }
 
@@ -70,6 +89,24 @@ public class SortiePicturesController {
 
         return "pictures-list";
 
+    }
+
+    public void participantsPicsNotifier(Integer sortieId) throws MessagingException {
+        List<Participant> participants= sortieManager.findById(sortieId).getParticipants();
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        ListIterator<Participant> participantListIterator=participants.listIterator();
+        while (participantListIterator.hasNext()) {
+            Participant participant=participantListIterator.next();
+            helper.setFrom(sender);
+            helper.setTo(participant.getUtilisateur().getMail());
+            helper.setSubject("Photos de la sortie " + participant.getSortie().getNom()+" du "+participant.getSortie().getDate());
+
+            helper.setText("Bonjour "+participant.getUtilisateur().getIdentifiant()+", des photos de la sortie ont été uploadés par "+participant.getSortie().getOrganisateur().getIdentifiant()+". Bon visionnage. "  +  "Cordialement");
+
+
+            mailSender.send(message);
+        }
     }
 
     }

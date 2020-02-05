@@ -29,23 +29,27 @@ import java.util.List;
 
     private static List<CoordinatesBean> parseFeature(Feature feature) {
         List<CoordinatesBean> coordinatesBeanList=new ArrayList<>();
-        if (feature != null) {
-            Document document = (Document) feature;
-            List<Feature> featureList = document.getFeature();
-            for (Feature documentFeature : featureList) {
-                Folder folder = (Folder) documentFeature;
-                List<Feature> folderfeaturList = folder.getFeature();
-                for (Feature folderfeature : folderfeaturList) {
-                    if (folderfeature instanceof Placemark) {
-                        Placemark placemark = (Placemark) folderfeature;
-                        Geometry geometry = placemark.getGeometry();
-                        CoordinatesBean coordinatesBean=parseGeometry(geometry,placemark);
-                        coordinatesBeanList.add(coordinatesBean);
+       try {
+           if (feature != null) {
+               Document document = (Document) feature;
+               List<Feature> featureList = document.getFeature();
+               for (Feature documentFeature : featureList) {
+                   Folder folder = (Folder) documentFeature;
+                   List<Feature> folderfeaturList = folder.getFeature();
+                   for (Feature folderfeature : folderfeaturList) {
+                       if (folderfeature instanceof Placemark) {
+                           Placemark placemark = (Placemark) folderfeature;
+                           Geometry geometry = placemark.getGeometry();
+                           CoordinatesBean coordinatesBean = parseGeometry(geometry, placemark);
+                           coordinatesBeanList.add(coordinatesBean);
 
-                    }
-                }
-            }
-        }
+                       }
+                   }
+               }
+           }
+       }catch (java.lang.ClassCastException e){
+           System.out.println("pas de placemark");
+       }
         return coordinatesBeanList;
     }
 
