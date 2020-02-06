@@ -89,6 +89,7 @@ public class SortiePicturesController {
 
         List<Picnamessortie> picnamessortieList = picNameSortieManager.findBySortieId(sortieId);
         model.addAttribute("picsList",picnamessortieList);
+        model.addAttribute("sortieId",sortieId);
 
         return "pictures-list";
 

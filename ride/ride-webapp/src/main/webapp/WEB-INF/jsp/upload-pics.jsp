@@ -20,7 +20,7 @@
 				<button type="button" name="back" onclick="history.back()">back</button>
 
 				<br>
-		 <h2>Sortie</h2>
+		 <h2>Photos</h2>
 
             <div class="form-group">
 			<div class="col-md-offset-2 col-md-9">
@@ -35,14 +35,14 @@
                    						<div class="col-md-9">
             <p>
                 <input id="fileInput" type="file" name="uploadingFiles" onchange="updateSize();" multiple>
-                selected files: <span id="fileNum">0</span>;
-                total size: <span id="fileSize">0</span>
+                fichiers sélectionnés: <span id="fileNum">0</span>;
+                taille totale: <span id="fileSize">0</span>
             </p>
             	</div>
                    	</div>
                     <div class="form-group">
 						<div class="col-md-offset-2 col-md-9">
-							<button id="submit" cssClass="btn btn-primary">Submit</button>
+							<button id="submit" cssClass="btn btn-primary">Upload</button>
 						</div>
 					</div>
 

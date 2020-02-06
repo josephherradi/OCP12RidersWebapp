@@ -16,7 +16,7 @@
         <br>
         <br>
         <div style="text-align: left">
-        				<a href="${pageContext.request.contextPath}/sorties/${picsList[0].sortieId}/details"
+        				<a href="${pageContext.request.contextPath}/sorties/${sortieId}/details"
         					class="button medium hpbottom">Liste des étapes</a>
          <br>
          <br>

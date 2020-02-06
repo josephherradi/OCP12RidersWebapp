@@ -52,14 +52,13 @@ public class UtilisateurController {
 
                 return "redirect:/sorties/liste";
             } else {
-                theModelMap.put("error", "Please check Id & password");
+                theModelMap.put("error", "Verifier svp l'identifiant et le mot de passe");
                 return "index";
 
             }
 
         } catch (NullPointerException e) {
-            theModelMap.put("error", "Please register account first");
-
+            theModelMap.put("error", "Creez un compte SVP d'abord");
         }
         ;
 

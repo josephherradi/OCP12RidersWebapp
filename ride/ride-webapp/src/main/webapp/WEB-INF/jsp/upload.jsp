@@ -14,7 +14,7 @@
 
 <body>
 
-	<h1>Spring Boot - File Upload</h1>
+	<h1>Upload fichier KML</h1>
 
 	<form method="POST" action="/upload?sortieId=${sortieId}" enctype="multipart/form-data">
 		<input type="file" name="file" /><br />

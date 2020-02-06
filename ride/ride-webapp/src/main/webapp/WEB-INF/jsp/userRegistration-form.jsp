@@ -25,17 +25,28 @@
 				<form:form action="saveUser" cssClass="form-horizontal"
 					method="post" modelAttribute="utilisateur">
 					<div class="form-group">
-						<label for="identifiant" class="col-md-3 control-label">user id</label>
+						<label for="identifiant" class="col-md-3 control-label">identifiant</label>
 						<div class="col-md-9">
 							<form:input path="identifiant" cssClass="form-control" />
 						</div>
 					</div>
 					<div class="form-group">
 
-						<label for="password" class="col-md-3 control-label">password</label>
+						<label for="password" class="col-md-3 control-label">mot de passe</label>
 						<div class="col-md-9">
 
 							<form:input path="password" type="password"
+								cssClass="form-control" />
+						</div>
+
+
+					</div>
+                    <div class="form-group">
+
+						<label for="mail" class="col-md-3 control-label">mail</label>
+						<div class="col-md-9">
+
+							<form:input path="mail" type="mail"
 								cssClass="form-control" />
 						</div>
 

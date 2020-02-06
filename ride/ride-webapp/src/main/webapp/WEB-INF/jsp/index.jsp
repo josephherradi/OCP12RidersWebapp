@@ -34,7 +34,7 @@
 					<div class="form-group">
 						<div class="col-md-10">
 
-							<label for="password">password</label> <input type="password"
+							<label for="password">mot de passe</label> <input type="password"
 								name="password" class="form-control">
 						</div>
 					</div>
