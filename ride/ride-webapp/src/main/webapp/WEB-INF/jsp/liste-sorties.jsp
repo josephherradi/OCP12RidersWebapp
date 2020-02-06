@@ -26,10 +26,21 @@
 
 
 			<br>
+			<div class="row">
+<div class="col-sm-6">
 
 			<input type="button" value="Nouvelle sortie"
         					onclick="window.location.href='showFormSortie'; return false;"
         					class="btn btn-primary" />
+</div>
+
+<div class="col-sm-6" style="text-align: right">
+
+			<input type="button" value="Chat feed"
+        					onclick="location.href='${pageContext.request.contextPath}/chatFeed'; return false;"
+        					class="btn btn-primary" />
+</div>
+        	</div>
          <br>
          <br>
          <br>

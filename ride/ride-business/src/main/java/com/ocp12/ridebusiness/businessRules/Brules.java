@@ -2,6 +2,7 @@ package com.ocp12.ridebusiness.businessRules;
 
 import com.ocp12.ridebusiness.ParticipantManager;
 import com.ocp12.ridebusiness.SortieManager;
+import com.ocp12.ridebusiness.UtilisateurManager;
 import com.ocp12.ridebusiness.exceptions.FunctionalException;
 import com.ocp12.ridemodele.Participant;
 import com.ocp12.ridemodele.Sortie;
@@ -19,6 +20,9 @@ public class Brules {
 
     @Autowired
     private ParticipantManager participantManager;
+
+    @Autowired
+    private UtilisateurManager utilisateurManager;
 
     public void checkUserComment(Utilisateur loggedUser, Integer sortieId){
         List<Participant> participantsSortie=sortieManager.findById(sortieId).getParticipants();
@@ -80,6 +84,15 @@ public class Brules {
     public void checkStatutSortieBeforeJoinParticipant(Participant participant){
         if(participant.getSortie().getStatut().equalsIgnoreCase("Termine") || participant.getSortie().getStatut().equalsIgnoreCase("Annule")){
             throw new FunctionalException("Impossible de participer à une sortie terminée");
+        }
+
+    }
+
+    public void checkRegistredUser(String userId){
+        Utilisateur utilisateur=utilisateurManager.findByIdentifiant(userId);
+
+        if (utilisateur==null){
+            throw new FunctionalException("Vous devez créer un compte d'abord");
         }
 
     }
