@@ -10,7 +10,6 @@ import com.ocp12.ridemodele.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 @Component
@@ -82,10 +81,10 @@ public class Brules {
             throw new FunctionalException("Vous êtes déjà inscrit comme participant à la sortie");
         }
     }
-// RG7 Impossible de participer si la statut est au statut terminé
+// RG7 Impossible de participer si la statut est au statut terminé ou annulé
     public void checkStatutSortieBeforeJoinParticipant(Participant participant){
         if(participant.getSortie().getStatut().equalsIgnoreCase("Termine") || participant.getSortie().getStatut().equalsIgnoreCase("Annule")){
-            throw new FunctionalException("Impossible de participer à une sortie terminée");
+            throw new FunctionalException("Impossible de participer à une sortie terminée ou annulée");
         }
 
     }

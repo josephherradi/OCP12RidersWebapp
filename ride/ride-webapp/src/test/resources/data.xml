@@ -1,12 +1,15 @@
 <dataset>
-    <Utilisateur utilisateur_id="1" identifiant="userTest" mail="test" password="test"/>
-    <Utilisateur utilisateur_id="2" identifiant="rider1" mail="test" password="test"/>
-    <Utilisateur utilisateur_id="3" identifiant="rider2" mail="test" password="test"/>
+    <Utilisateur utilisateur_id="1" identifiant="userTest"/>
+    <Utilisateur utilisateur_id="2" identifiant="rider1" />
+    <Utilisateur utilisateur_id="3" identifiant="rider2" />
     <Sortie sortie_id="1" description="test" nbre_participants="2" statut="Termine" utilisateur_id="1" />
     <Sortie sortie_id="2" description="test" nbre_participants="2" statut="Confirme" utilisateur_id="2" />
     <Sortie sortie_id="3" description="test" nbre_participants="2" statut="Termine" utilisateur_id="1" />
+    <Sortie sortie_id="4" description="test" nbre_participants="2" statut="Termine"  />
     <Participant participant_id="1" sortie_id="2" utilisateur_id="1"/>
     <Participant participant_id="2" sortie_id="2" utilisateur_id="2"/>
     <Participant participant_id="3" sortie_id="1" utilisateur_id="1"/>
+    <Participant participant_id="4" sortie_id="4" utilisateur_id="1"/>
+
 
 </dataset>
