@@ -72,7 +72,7 @@ public class SortiePicturesController {
                 Picnamessortie picNamesSortie=new Picnamessortie();
                 picNamesSortie.setSortieId(picnamessortieId.getSortieId());
                 picNamesSortie.setFilename(uploadedFile.getOriginalFilename());
-                brules.checkUserOrganisateur(loggedUser,session,picnamessortieId.getSortieId());
+                brules.checkUserOrganisateur(loggedUser,picnamessortieId.getSortieId());
                 brules.checkSortieStatut(picnamessortieId.getSortieId());
                 picNameSortieManager.savePicNameSortie(picNamesSortie);
                 this.participantsPicsNotifier(picnamessortieId.getSortieId());}

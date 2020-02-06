@@ -54,7 +54,7 @@ public class EtapeController {
 @RequestMapping("saveEtape")
     public String saveEtape(@ModelAttribute Etape letape, @RequestParam("sortieId") Integer sortieId, HttpServletRequest request, HttpSession session){
     Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
-    brules.checkUserOrganisateur(loggedUser,session,sortieId);
+    brules.checkUserOrganisateur(loggedUser,sortieId);
     etapeManager.saveEtape(letape,sortieId);
     return "redirect:/etapes/etapesList?sortieId="+sortieId;
 }

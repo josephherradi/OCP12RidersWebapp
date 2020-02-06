@@ -204,7 +204,7 @@ public class SortieController {
         Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
         Sortie laSortie=sortieManager.findById(sortieId);
         laSortie.setStatut("Annule");
-        brules.checkUserOrganisateur(loggedUser,session,sortieId);
+        brules.checkUserOrganisateur(loggedUser,sortieId);
         sortieManager.saveSortie(laSortie);
         List<Participant> participantList=laSortie.getParticipants();
         this.participantsMailSender(participantList);
@@ -217,7 +217,7 @@ public class SortieController {
         Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
         Sortie laSortie=sortieManager.findById(sortieId);
         laSortie.setStatut("Confirme");
-        brules.checkUserOrganisateur(loggedUser,session,sortieId);
+        brules.checkUserOrganisateur(loggedUser,sortieId);
         sortieManager.saveSortie(laSortie);
         List<Participant> participantList=laSortie.getParticipants();
         this.participantsMailSender(participantList);
@@ -229,7 +229,7 @@ public class SortieController {
         Utilisateur loggedUser=(Utilisateur)request.getSession().getAttribute("theUser");
         Sortie laSortie=sortieManager.findById(sortieId);
         laSortie.setStatut("Termine");
-        brules.checkUserOrganisateur(loggedUser,session,sortieId);
+        brules.checkUserOrganisateur(loggedUser,sortieId);
         sortieManager.saveSortie(laSortie);
         List<Participant> participantList=laSortie.getParticipants();
         this.participantsMailSender(participantList);
