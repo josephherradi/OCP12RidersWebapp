@@ -26,6 +26,8 @@ Vous pouvez vous connecter en utilisant l'identifiant : rider1 et le mot de pass
 * Spring Boot 2.2.2
 * Spring Boot data jpa
 * Spring Boot mail
+* Google Maps Javascript API
+* OpenWeather Rest API
 * Maven
 * mySQL 5.6.41 (login: root, pwd=root)
 * IntelliJ 2018.2
@@ -34,6 +36,7 @@ Vous pouvez vous connecter en utilisant l'identifiant : rider1 et le mot de pass
 * JSP  2.3
 * Apache Tomcat (embeded & 9.0.29)
 * dbUnit 2.5.4 et H2 pour les unitaires et d'intégration
+
 
 ## Lancer l'application à l'aide du plugin Maven
 
