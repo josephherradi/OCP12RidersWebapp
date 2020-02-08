@@ -46,7 +46,7 @@ Il est possible de compiler et d'executer rapidement l'application avec la comma
 mvn spring-boot:run
 ```
 
-## Compiler en JAR/WAR
+## Compiler en WAR
 
 La compilation des livrables se fait avec la commande suivante à l'aide de maven
 ```
